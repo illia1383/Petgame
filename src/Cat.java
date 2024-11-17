@@ -1,10 +1,11 @@
+package src;
 import javax.swing.*;
 import java.awt.*;
 
 
-public class Dog extends Pet{ 
-    public Dog(String name){
-        super(name, 100, 90, 100, 40, 0);
+public class Cat extends Pet{ 
+    public Cat(String name){
+        super(name, 100, 60, 80, 100, 0);
     }
 
     @Override
@@ -19,7 +20,7 @@ public class Dog extends Pet{
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
         panel.setLayout(new BorderLayout()); // Set layout for the panel
         
-        // Replace with a Dog Image
+        // Replace with a Cat Image
         // ImageIcon sprite = new ImageIcon("images/tile043.png"); // Replace with your image path
         // JLabel spriteLabel = new JLabel(sprite);
         // panel.add(spriteLabel, BorderLayout.CENTER);
