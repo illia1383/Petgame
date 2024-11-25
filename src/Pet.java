@@ -87,6 +87,7 @@ public class Pet{
 
         refreshStats();
     }
+    
     public String getName(){
         return this.name;
     }
@@ -98,9 +99,9 @@ public class Pet{
      */
     public boolean isAlive(){
         if (this.health == 0){
-            this.alive = true;
+            this.alive = false;
         }
-        else this.alive = false;
+        else this.alive = true;
         return alive;
     }
 
@@ -110,7 +111,7 @@ public class Pet{
      * @return True if the pet is hungry, false otherwise
      */
     public boolean isHungry(){
-        if (this.hunger < 100){
+        if (this.hunger == 0){
             this.hungry = true;
             }
         else this.hungry = false;
@@ -123,7 +124,7 @@ public class Pet{
      * @return True if the pet is tired, false otherwise
      */
     public boolean isTired(){
-        if (this.sleep < 100){
+        if (this.sleep == 0){
             this.tired = true;
             }
         else this.tired = false;
@@ -136,7 +137,7 @@ public class Pet{
      * @return True if the pet is unhappy, false otherwise
      */
     public boolean isHappy(){
-        if (this.happiness < 100){
+        if (this.happiness == 0){
             this.unhappy = true;
             }
         else this.unhappy = false;
