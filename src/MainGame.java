@@ -1,10 +1,12 @@
 import java.util.*;
 import javax.swing.*;
 import java.util.Timer;
+import javax.swing.JFrame;
 import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainGame extends state
 {
@@ -27,7 +29,7 @@ public class MainGame extends state
 	/**
 	 * How many seconds before an action is taken
 	 */
-	private int perSecond;
+	private int interval;
 	/**
 	 * health value segments
 	 */
@@ -50,7 +52,6 @@ public class MainGame extends state
 	 * constructor for the class MainGame
 	 * @param manage
 	 * @param pet
-	 * @calls 
 	 */
 	public MainGame(stateManager manage, Pet pet)
 	{
@@ -58,96 +59,120 @@ public class MainGame extends state
 		this.pet = pet;
 		this.manager = manage;
 		//scaling for happy and stuff
-		happy=10;
-		sleep=10;
-		hunger=10;
-		health=10;
+		happy=5;
+		sleep=5;
+		hunger=5;
+		health=5;
 		//5 seconds per action in timer (perSecond scales on milliseconds)
-		perSecond = 5000;
+		interval = 5000;
+		this.timer = new Timer();
 		createTimer();
 
 	}
 	
 	/**
-	 * Timer method to make
+	 * Timer method to make the timer that decreases pet stats every 5 seconds to simulate time
 	 */
 	private void createTimer()
 	{
-		TimerTask = new TimerTask();
+		TimerTask nature = new TimerTask() {
+			
+			@Override
+			public void run()
+			{
+				pet.updateStats(0, -1, -1, -1);
+				//if the pet is detected to be dead, cancel timer and do death animation
+				//switch(pet.sprite())
+				//case 1 cancel
+				
+			}
+		};
+		//every 5 seconds, decrease these things
+		timer.scheduleAtFixedRate(nature, 0, interval);
+		
+	}
+	//private method for death
+	private void youDied()
+	{
+		//not sure what to do yet;
 	}
 	
 	/**
-	 * Method to force the pet to sleep, decreases less hunger than normal sleeping
+	 * Makes the pet sleep until its sleep bar is full
 	 */
 	private void deepSleep()
 	{
-		//until sleep =
-		while(pet.getSleep() != 100)
-		{
-			pet.updateStats(0, 0, sleep, 0);
-		}
+		Timer tempTimer = new Timer();
+		TimerTask tempTask = new TimerTask() {
+			@Override
+			public void run()
+			{
+				pet.updateStats(0, 0, sleep*2, 0);
+			}
+		};
+		//until sleep = 100, increase sleep by 10 per 5 seconds
+		tempTimer.scheduleAtFixedRate(tempTask, 0, interval);
+		while(pet.getSleep() != 100) {}
+		tempTimer.cancel();
 	}
 	/**
-	 * The pet will do exercise
+	 * The pet will do exercise, making them more happy. Give 15 coins to player
 	 */
 	private void exerise()
 	{
-		//pet actions
-		pet.updateStats(2, happy, -sleep, -hunger);
-		if(pet.isTired())
-		{
-			deepSleep();
-		}
-		pet.setMoney(pet.getMoney()+10);
+		pet.updateStats(0, happy, -sleep, -hunger*2);
+		pet.setMoney(15);
 	}
 	/**
-	 * Pet will sleep
+	 * Initiates the process of deep sleep
 	 */
 	private void sleep()
 	{
-		//pet sleep
-		pet.updateStats(0, happy, sleep, -hunger);
-		pet.setMoney(pet.getMoney()+10);
+		//pet goes to sleep
+		deepSleep();
+		pet.setMoney(30);
 	}
 	/**
-	 * Pet will be fed
+	 * Pet will be fed, more shall be discussed
 	 */
 	private void feed()
 	{
-		//feed
+		//feed pet
 		pet.updateStats(health, happy, sleep, hunger);
+		//lose money
 		pet.setMoney(pet.getMoney()+10);
 	}
 	/**
-	 * Pet will be given gifts
+	 * Pet will be given gifts, more will be discussed due to consumables
 	 */
 	private void giveGifts()
 	{
 		pet.updateStats(health, happy, sleep, hunger);
 	}
 	/**
-	 * Play with pet
+	 * Play with pet, increase money by 15
 	 */
 	private void play()
 	{
-		pet.updateStats(health, happy, sleep, hunger);
-		pet.setMoney(pet.getMoney()+10);
+		pet.updateStats(0, happy*2, -sleep*2, -hunger);
+		pet.setMoney(15);
 	}
 	/**
-	 * Bring pet to vet
+	 * Bring pet to vet, recovers everything
 	 */
 	private void vet()
 	{
-		pet.updateStats(health*2, happy, sleep, hunger*2);
+		pet.updateStats(100, 100, 100, 100);
 		//Action to decrease money unknown
-		pet.setMoney(pet.getMoney()-20);
+		pet.setMoney(-50);
 	}
 	/**
 	 * Enter shop 
 	 */
-	private void enterShop();
+	private void enterShop()
 	{
-		int a = 0;
+		Shop shop= new Shop();
+		shop.render();
 	}
 	/**
 	 * save file
@@ -160,12 +185,54 @@ public class MainGame extends state
 	 * render method
 	 */
 	public void render(){
-		JFrame frame = new JFrame("Main Page");
+		//frame
+		JFrame frame = new JFrame();
+		frame.setTitle("MainPage");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
-        frame.setLayout(new GridLayout(4, 1, 10, 10)); // Arrange buttons in a vertical grid
-        frame.setLocationRelativeTo(null);
+        frame.setSize(2000, 1000);
+        frame.setBackground(Color.gray);
+        
+        //setup buttons
+        JButton sleep = new JButton("Sleep");
+        sleep.addActionListener(ea -> sleep());
+        JButton exerise = new JButton("Excerise");
+        exerise.addActionListener(ea -> exerise());
+        JButton feed = new JButton("Feed Pet");
+        feed.addActionListener(ea -> exerise());
+        JButton play = new JButton("Play");
+        play.addActionListener(ea -> play());
+        JButton vet = new JButton("Go to vet (-50 Coins)");
+        vet.addActionListener( ea -> vet());
+        JButton gifts = new JButton("Gift Pet");
+        gifts.addActionListener(ea -> giveGifts());
+        JButton shop = new JButton("Enter Shop");
+        shop.addActionListener(ea -> enterShop());
+        JButton save = new JButton("Save Game");
+        save.addActionListener(ea -> save());
+        
+        
+        //Set panel for menu
+        JPanel menu = new JPanel();
+        menu.setBorder(BorderFactory.createEmptyBorder(10,5,15,5));
+        menu.setLayout(new BoxLayout(menu, BoxLayout.X_AXIS));
+        menu.setBackground(Color.black);
+        menu.add(sleep);
+        menu.add(exerise);
+        menu.add(feed);
+        menu.add(play);
+        menu.add(vet);
+        menu.add(gifts);
+        menu.add(shop);
+        menu.add(save);
+        frame.add(menu, BorderLayout.SOUTH);
+        
+        
 
+        
+        //setup actions
+        
+        frame.show();
+        
 
 		
 	}
@@ -174,5 +241,6 @@ public class MainGame extends state
 		stateManager dummy = new stateManager();
 		Pet pet = new Pet();
 		MainGame hi = new MainGame(dummy, pet);
+		hi.render();
 	}
 }
