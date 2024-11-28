@@ -299,7 +299,7 @@ public class Pet{
         
         frame.add(panel);
         frame.setVisible(true); // Make the frame visible
-        statsPanel.setVisible(true);
+        statsPanel.setVisible(false); // Make the stats invisible
     }
 
     private void refreshStats() {
