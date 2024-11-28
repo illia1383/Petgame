@@ -15,7 +15,7 @@ public class Pet{
         private boolean alive;
         private boolean hungry;
         private boolean tired;
-        private boolean unhappy;
+        private boolean happy;
         private String name;
         private String birthDate;
         private int money;
@@ -54,11 +54,11 @@ public class Pet{
         this.alive = true;
         this.hungry = false;
         this.tired = false;
-        this.unhappy = false;
+        this.happy = true;
         this.type = type;
         this.inventory = new HashMap<>();
 
-        // Intialize Frame and Panel:
+        // Intialize Frame and Panel: Once main class is finished i might need to set the frame to equal to the given frame
         frame = new JFrame("Simple Window");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 300); // Set the window size
@@ -93,7 +93,9 @@ public class Pet{
         this.sleep = Math.max(0, Math.min(this.sleep, 100));
         this.hunger = Math.max(0, Math.min(this.hunger, 100));
 
-        refreshStats();
+        refreshStats(); // Refresh the stats
+        
+        render(frame,panel); // Re-render frame(when stats are updated)
     }
 
     /**
@@ -146,14 +148,14 @@ public class Pet{
     /**
      * Checks if the pet is happy
      * @param happiness
-     * @return True if the pet is unhappy, false otherwise
+     * @return False the pet is unhappy, True otherwise
      */
     public boolean isHappy(){
         if (this.happiness == 0){
-            this.unhappy = true;
+            this.happy = false;
             }
-        else this.unhappy = false;
-        return unhappy;
+        else this.happy = true;
+        return happy;
     }
 
     /**
@@ -295,6 +297,7 @@ public class Pet{
         statsPanel.add(moneyLabel);
         statsPanel.add(new JLabel("Birthday: " + getBirthDate()));
         panel.add(statsPanel, BorderLayout.SOUTH);
+        
 
         
         frame.add(panel);

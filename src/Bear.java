@@ -12,8 +12,21 @@ public class Bear extends Pet{
         // Call the parent (Pet) render to reuse the same frame and panel
         super.render(frame, panel);
 
+        String spritePath = "images/bearnormal.png";
+        if(!isAlive()){
+            spritePath = "images/beardead.png";
+        } else if (isTired()){
+            spritePath = "images/beartired.png";
+        } else if (!isHappy()){
+            spritePath = "images/bearangry.png";
+        } else if(isHungry()){
+            spritePath = "images/bearhungry.png";
+        }else{
+            spritePath = "images/bearnormal.png";
+        }
+
         // Update sprite for the dog 
-        ImageIcon bearSprite = new ImageIcon("images/catbear.png"); // Replace with dog image path
+        ImageIcon bearSprite = new ImageIcon(spritePath); // Replace with bear image path
         JLabel spriteLabel = new JLabel(bearSprite);
         panel.add(spriteLabel, BorderLayout.CENTER);
 
