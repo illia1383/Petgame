@@ -81,6 +81,7 @@ public class MainGame extends state
 			public void run()
 			{
 				pet.updateStats(0, -1, -1, -1);
+				System.out.println("hi");
 				//if the pet is detected to be dead, cancel timer and do death animation
 				//switch(pet.sprite())
 				//case 1 cancel
@@ -95,25 +96,35 @@ public class MainGame extends state
 	private void youDied()
 	{
 		//not sure what to do yet;
+		timer.cancel();
+		//TODO: Call death screen class
+		
 	}
 	
 	/**
 	 * Makes the pet sleep until its sleep bar is full
 	 */
-	private void deepSleep()
+	public void deepSleep()
 	{
 		Timer tempTimer = new Timer();
 		TimerTask tempTask = new TimerTask() {
 			@Override
 			public void run()
 			{
-				pet.updateStats(0, 0, sleep*2, 0);
+				
+				pet.updateStats(0, 0, sleep, 0);
+				System.out.println(pet.getSleep());
+				if(pet.getSleep()==100)
+				{
+					tempTimer.cancel();
+					System.out.println("cancelled");
+				}
+
 			}
 		};
-		//until sleep = 100, increase sleep by 10 per 5 seconds
-		tempTimer.scheduleAtFixedRate(tempTask, 0, interval);
-		while(pet.getSleep() != 100) {}
-		tempTimer.cancel();
+		//TODO: Disable timer
+		//until sleep = 100, increase sleep by 10 per 2 seconds
+		tempTimer.scheduleAtFixedRate(tempTask, 0, 2000);
 	}
 	/**
 	 * The pet will do exercise, making them more happy. Give 15 coins to player
@@ -140,7 +151,7 @@ public class MainGame extends state
 		//feed pet
 		pet.updateStats(health, happy, sleep, hunger);
 		//lose money
-		pet.setMoney(pet.getMoney()+10);
+		pet.setMoney(+10);
 	}
 	/**
 	 * Pet will be given gifts, more will be discussed due to consumables
@@ -225,9 +236,6 @@ public class MainGame extends state
         menu.add(shop);
         menu.add(save);
         frame.add(menu, BorderLayout.SOUTH);
-        
-        
-
         
         //setup actions
         
