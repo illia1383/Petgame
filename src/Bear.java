@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class Bear extends Pet{ 
     public Bear(String name){
-        super(name, 100, 100, 40, 80, 0); //Temporary Stats
+        super(name, 100, 100, 40, 80, 0, "Bear"); //Temporary Stats
     }
 
     @Override

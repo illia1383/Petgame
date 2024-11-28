@@ -19,9 +19,10 @@ public class Pet{
         private String name;
         private String birthDate;
         private int money;
-        private HashMap<String, Integer> items;
-        // Dictionary for the items
-        // Key = item and then the value would be the number of items would be the 1
+        private String type;
+        private HashMap<String, Integer> inventory;
+        // Dictionary for the inventory
+        // Key = item and then the value would be the number of inventory would be the 1
 
         // GUI Labels for pet statistics
         private JLabel healthLabel;
@@ -42,7 +43,7 @@ public class Pet{
      * @param hunger
      * @param money
      */
-    public Pet(String name, int health, int happiness, int sleep, int hunger, int money){
+    public Pet(String name, int health, int happiness, int sleep, int hunger, int money, String type){
         this.name = name;
         this.health = health;
         this.happiness = happiness;
@@ -54,7 +55,8 @@ public class Pet{
         this.hungry = false;
         this.tired = false;
         this.unhappy = false;
-        this.items = new HashMap<>();
+        this.type = type;
+        this.inventory = new HashMap<>();
 
         // Intialize Frame and Panel:
         frame = new JFrame("Simple Window");
@@ -94,6 +96,10 @@ public class Pet{
         refreshStats();
     }
 
+    /**
+     * Gets the name of the pet
+     * @return the name of the pet
+     */
     public String getName(){
         return this.name;
     }
@@ -190,6 +196,13 @@ public class Pet{
         return this.money;
     }
 
+    public String getType(){
+        return type;
+    }
+
+    public void setType(String type){
+        this.type = type;
+    }
     /**
      * Sets the amount of money for the pet (Can be used in the shop to remove money from the pet just make it negative)
      * @param changeAmount
@@ -221,21 +234,21 @@ public class Pet{
     } 
     /**
      * Gets the current inventory of the pet
-     * @return the items and the quantity of the item
+     * @return the inventory and the quantity of the item
      */
     public HashMap<String, Integer> getInventory(){
-        return items;
+        return inventory;
     }
 
     /**
-     * Adds items to the current inventory of the pet
+     * Adds inventory to the current inventory of the pet
      * @param itemName
      * @param quantity
      */
     public void addItem(String itemName, int quantity){
-        // Puts the items into the HashMap
+        // Puts the inventory into the HashMap
         // getOrDefault basically gets the current quantity of the item or if it doesn't already exist in the inventory it defaults the value as 0
-        items.put(itemName, items.getOrDefault(itemName, 0) + quantity);
+        inventory.put(itemName, inventory.getOrDefault(itemName, 0) + quantity);
     }
 
     /**
@@ -245,13 +258,13 @@ public class Pet{
      * @return True if the item was successfully removed or false if the quantity exceeded the amount of item it could delete or if there is no item with that name in the dictionary 
      */
     public boolean removeItem(String itemName, int quantity){
-        // If the item does not exist within the hashmap or if the quantity is more than there is items
-        if(!items.containsKey(itemName) || items.get(itemName) < quantity){
+        // If the item does not exist within the hashmap or if the quantity is more than there is inventory
+        if(!inventory.containsKey(itemName) || inventory.get(itemName) < quantity){
             return false; // Cannot remove the item
         }
-        items.put(itemName, items.get(itemName) - quantity); // Subtract the amount that needs to be removed from the inventory
-        if(items.get(itemName) == 0){ // If there are no more items, then the entire item should be removed from the inventory
-            items.remove(itemName);
+        inventory.put(itemName, inventory.get(itemName) - quantity); // Subtract the amount that needs to be removed from the inventory
+        if(inventory.get(itemName) == 0){ // If there are no more inventory, then the entire item should be removed from the inventory
+            inventory.remove(itemName);
         }
         return true; // Return true that the item has been successfully removed.
     }
@@ -335,18 +348,18 @@ public class Pet{
             // myPet.setMoney(-5);
             // System.out.println("Subtracting: " + myPet.getMoney());
 
-            // // Test: Adding items to inventory - Works
+            // // Test: Adding inventory to inventory - Works
             // System.out.println("Testing addItem method...");
             // myPet.addItem("Apple", 5);
             // myPet.addItem("Bone", 3);
-            // System.out.println("Inventory after adding items: " + myPet.getInventory());
+            // System.out.println("Inventory after adding inventory: " + myPet.getInventory());
 
             // // Test: Adding more of an existing item - Works
             // System.out.println("\nAdding more of an existing item...");
             // myPet.addItem("Apple", 2);
             // System.out.println("Inventory after adding more Apples: " + myPet.getInventory());
 
-            // // Test: Removing items from inventory - Works
+            // // Test: Removing inventory from inventory - Works
             // System.out.println("\nTesting removeItem method...");
             // boolean removed = myPet.removeItem("Apple", 3);
             // System.out.println("Attempt to remove 3 Apples: " + removed);
@@ -358,7 +371,7 @@ public class Pet{
             // System.out.println("Attempt to remove all Bones: " + removed);
             // System.out.println("Inventory after removing all Bones: " + myPet.getInventory());
 
-            // // Test: Attempting to remove more items than available - Works
+            // // Test: Attempting to remove more inventory than available - Works
             // System.out.println("\nTrying to remove more Apples than available...");
             // removed = myPet.removeItem("Apple", 10);
             // System.out.println("Attempt to remove 10 Apples: " + removed);
