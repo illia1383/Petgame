@@ -74,9 +74,9 @@ public class TestPet {
 
     @Test
     public void testIsHappy() {
-        Assert.assertFalse(testDog.isHappy());
-        testDog.updateStats(0, -100, 0, 0);
         Assert.assertTrue(testDog.isHappy());
+        testDog.updateStats(0, -100, 0, 0);
+        Assert.assertFalse(testDog.isHappy());
     }
 
     @Test
