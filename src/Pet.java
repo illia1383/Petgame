@@ -36,4 +36,19 @@ public class Pet {
 		return false;
 	}
 
+	public Object getHealth() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int getHappiness() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int getHunger() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
