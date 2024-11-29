@@ -10,11 +10,12 @@ public class LoadSaves {
     private JButton save3;
     private JButton exit;
     private JFrame frame;
-    private PracticePet pp;
+    private Pet pet;
     private StateManager statemanager;
 
     public LoadSaves(StateManager sg) {
         statemanager = sg;
+        pet = null;
     }
 
     public void render() {
@@ -64,18 +65,41 @@ public class LoadSaves {
     private boolean makePet(String file) {
         try {
             //Reading the file
-            BufferedReader reader = new BufferedReader(new FileReader(file));
-            //Need to not read if there is an empty file do later
-            //If there is a file to read
-            String name = reader.readLine();
-            String type = reader.readLine();
-            String alive = reader.readLine();
-            pp = new PracticePet(name, type, Boolean.parseBoolean(alive));
+            File fileobj = new File(file);
+            BufferedReader reader = new BufferedReader(new FileReader(fileobj));
 
-            if (pp.getAlive()) { //If there is pet to play with, start hte game
-                return true;
+            //If the file is empty return false
+            if (fileobj.length() == 0) {
+                return false;
             }
 
+            //Need to not read if there is an empty file do later
+            //If there is a file to read
+            String type = reader.readLine();
+            String name = reader.readLine();
+            
+            int[] petStats = new int[5];
+            for (int i = 0; i < 5; i++) {
+                petStats[i] = Integer.parseInt(reader.readLine());
+            }
+
+            //Creating the pet based off the type
+            if (type.equals("cat")) {
+                pet = new Cat(name);
+            } else if (type.equals("dog")) {
+                pet = new Dog(name);
+            } else if (type.equals("bear")) {
+                pet = new Bear(name);
+            }
+
+            //Adding the stats of the pet
+            pet.updateStats(petStats[0], petStats[1], petStats[2], petStats[3]);
+            pet.setMoney(petStats[4]);
+            
+            reader.close();
+            if (pet.getHealth() > 0) { //If there is pet to play with, which is alive, start the game
+                return true;
+            }
         } catch (IOException er) {
             System.out.println("IO Error");
             System.exit(0);
