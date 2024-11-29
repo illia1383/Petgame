@@ -23,9 +23,22 @@ public class MainGame extends state
 	 */
 	private Timer timer;
 	/**
-	 * Timer On/off
+	 * Frame for display
 	 */
-	private boolean timerOn;
+	JFrame frame;
+	/**
+	 * Buttons for the page
+	 */
+	JButton sleep;
+	JButton exerise;
+	JButton feed;
+	JButton play;
+	JButton vet;
+	JButton gifts;
+	JButton shop;
+	JButton save;
+	JButton [] buttons = {sleep, exerise, feed, play, vet, gifts, shop, save};
+	
 	/**
 	 * How many seconds before an action is taken
 	 */
@@ -41,7 +54,7 @@ public class MainGame extends state
 	/**
 	 * Sleep segment
 	 */
-	private int sleep;
+	private int sleepiness;
 	/**
 	 * Hunger segment
 	 */
@@ -60,13 +73,14 @@ public class MainGame extends state
 		this.manager = manage;
 		//scaling for happy and stuff
 		happy=5;
-		sleep=5;
+		sleepiness=5;
 		hunger=5;
 		health=5;
 		//5 seconds per action in timer (perSecond scales on milliseconds)
 		interval = 5000;
 		this.timer = new Timer();
 		createTimer();
+		render();
 
 	}
 	
@@ -98,6 +112,7 @@ public class MainGame extends state
 		//not sure what to do yet;
 		timer.cancel();
 		//TODO: Call death screen class
+		save();
 		
 	}
 	
@@ -106,18 +121,25 @@ public class MainGame extends state
 	 */
 	public void deepSleep()
 	{
+		for(JButton button:buttons)
+		{
+			button.disable();
+		}
 		Timer tempTimer = new Timer();
 		TimerTask tempTask = new TimerTask() {
 			@Override
 			public void run()
 			{
 				
-				pet.updateStats(0, 0, sleep, 0);
+				pet.updateStats(0, 0, sleepiness, 0);
 				System.out.println(pet.getSleep());
 				if(pet.getSleep()==100)
 				{
+					for(JButton button:buttons)
+					{
+						button.enable();
+					}
 					tempTimer.cancel();
-					System.out.println("cancelled");
 				}
 
 			}
@@ -131,7 +153,7 @@ public class MainGame extends state
 	 */
 	private void exerise()
 	{
-		pet.updateStats(0, happy, -sleep, -hunger*2);
+		pet.updateStats(0, happy, -sleepiness, -hunger*2);
 		pet.setMoney(15);
 	}
 	/**
@@ -148,24 +170,23 @@ public class MainGame extends state
 	 */
 	private void feed()
 	{
-		//feed pet
-		pet.updateStats(health, happy, sleep, hunger);
-		//lose money
-		pet.setMoney(+10);
+		//TODO: call pet for inventory
+		//pet.removeItem();
+		
 	}
 	/**
 	 * Pet will be given gifts, more will be discussed due to consumables
 	 */
 	private void giveGifts()
 	{
-		pet.updateStats(health, happy, sleep, hunger);
+		pet.updateStats(health, happy, sleepiness, hunger);
 	}
 	/**
 	 * Play with pet, increase money by 15
 	 */
 	private void play()
 	{
-		pet.updateStats(0, happy*2, -sleep*2, -hunger);
+		pet.updateStats(0, happy*2, -sleepiness*2, -hunger);
 		pet.setMoney(15);
 	}
 	/**
@@ -191,35 +212,41 @@ public class MainGame extends state
 	private void save()
 	{
 		//save data on file, to be discussed
+		//TODO:Display stuff/ save
+		
 	}
 	/**
 	 * render method
 	 */
 	public void render(){
 		//frame
-		JFrame frame = new JFrame();
+		frame = new JFrame();
 		frame.setTitle("MainPage");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(2000, 1000);
         frame.setBackground(Color.gray);
         
-        //setup buttons
-        JButton sleep = new JButton("Sleep");
+        //TODO: Display healthbar
+        
+        //Button setup
+        sleep = new JButton("Sleep");
         sleep.addActionListener(ea -> sleep());
-        JButton exerise = new JButton("Excerise");
+        exerise = new JButton("Excerise");
         exerise.addActionListener(ea -> exerise());
-        JButton feed = new JButton("Feed Pet");
+        feed = new JButton("Feed Pet");
         feed.addActionListener(ea -> exerise());
-        JButton play = new JButton("Play");
+        play = new JButton("Play");
         play.addActionListener(ea -> play());
-        JButton vet = new JButton("Go to vet (-50 Coins)");
+        vet = new JButton("Go to vet (-50 Coins)");
         vet.addActionListener( ea -> vet());
-        JButton gifts = new JButton("Gift Pet");
+        gifts = new JButton("Gift Pet");
         gifts.addActionListener(ea -> giveGifts());
-        JButton shop = new JButton("Enter Shop");
+        shop = new JButton("Enter Shop");
         shop.addActionListener(ea -> enterShop());
-        JButton save = new JButton("Save Game");
+        save = new JButton("Save Game");
         save.addActionListener(ea -> save());
+        
+        
         
         
         //Set panel for menu
