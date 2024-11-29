@@ -27,6 +27,9 @@ public class Dog extends Pet{
         
         // Update sprite for the dog 
         ImageIcon dogSprite = new ImageIcon(spritePath); // Replace with dog image path
+        // Image originalImage = dogSprite.getImage();
+        // Image resizedTest = originalImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
+        // ImageIcon resizeImage = new ImageIcon(resizedTest);
         JLabel spriteLabel = new JLabel(dogSprite);
         panel.add(spriteLabel, BorderLayout.CENTER);
 

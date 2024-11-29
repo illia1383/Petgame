@@ -20,7 +20,7 @@ public class Pet{
         private String birthDate;
         private int money;
         private String type;
-        private HashMap<String, Integer> inventory;
+        private HashMap<Items, Integer> inventory;
         // Dictionary for the inventory
         // Key = item and then the value would be the number of inventory would be the 1
 
@@ -238,7 +238,7 @@ public class Pet{
      * Gets the current inventory of the pet
      * @return the inventory and the quantity of the item
      */
-    public HashMap<String, Integer> getInventory(){
+    public HashMap<Items, Integer> getInventory(){
         return inventory;
     }
 
@@ -247,7 +247,7 @@ public class Pet{
      * @param itemName
      * @param quantity
      */
-    public void addItem(String itemName, int quantity){
+    public void addItem(Items itemName, int quantity){
         // Puts the inventory into the HashMap
         // getOrDefault basically gets the current quantity of the item or if it doesn't already exist in the inventory it defaults the value as 0
         inventory.put(itemName, inventory.getOrDefault(itemName, 0) + quantity);
@@ -259,7 +259,7 @@ public class Pet{
      * @param quantity
      * @return True if the item was successfully removed or false if the quantity exceeded the amount of item it could delete or if there is no item with that name in the dictionary 
      */
-    public boolean removeItem(String itemName, int quantity){
+    public boolean removeItem(Items itemName, int quantity){
         // If the item does not exist within the hashmap or if the quantity is more than there is inventory
         if(!inventory.containsKey(itemName) || inventory.get(itemName) < quantity){
             return false; // Cannot remove the item
@@ -286,6 +286,11 @@ public class Pet{
         // JLabel spriteLabel = new JLabel(sprite);
         // panel.add(spriteLabel, BorderLayout.CENTER);
         
+        // For my update stats (Sprite change) method
+        this.frame = frame;
+        this.panel = panel; 
+
+        // Invisible stats to keep track of it.
         JPanel statsPanel = new JPanel();
         statsPanel.setLayout(new GridLayout(0, 1)); // Single column for stats
     
@@ -320,10 +325,10 @@ public class Pet{
             //myPet.render(myPet.frame); // Render the UI
             
             
-            // Dog myDog = new Dog("Dumpling");
-            // myDog.render(myDog.getFrame(),myDog.getPanel());
-            Cat myCat = new Cat("Fish");
-            myCat.render(myCat.getFrame(),myCat.getPanel());
+            Dog myDog = new Dog("Dumpling");
+            myDog.render(myDog.getFrame(),myDog.getPanel());
+            // Cat myCat = new Cat("Fish");
+            // myCat.render(myCat.getFrame(),myCat.getPanel());
             // Bear myBear = new Bear("Berry");
             // myBear.render(myBear.getFrame(),myBear.getPanel());
             
