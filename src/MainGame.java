@@ -27,6 +27,11 @@ public class MainGame extends state
 	 */
 	JFrame frame;
 	/**
+	 * Message that shows up whenever an action is taken
+	 */
+	JPanel mess;
+	JLabel content;
+	/**
 	 * Buttons for the page
 	 */
 	JButton sleep;
@@ -37,7 +42,7 @@ public class MainGame extends state
 	JButton gifts;
 	JButton shop;
 	JButton save;
-	JButton [] buttons = {sleep, exerise, feed, play, vet, gifts, shop, save};
+	JButton [] buttons;
 	
 	/**
 	 * How many seconds before an action is taken
@@ -95,7 +100,6 @@ public class MainGame extends state
 			public void run()
 			{
 				pet.updateStats(0, -1, -1, -1);
-				System.out.println("hi");
 				//if the pet is detected to be dead, cancel timer and do death animation
 				//switch(pet.sprite())
 				//case 1 cancel
@@ -121,10 +125,16 @@ public class MainGame extends state
 	 */
 	public void deepSleep()
 	{
-		for(JButton button:buttons)
-		{
-			button.disable();
-		}
+		//buttons setEnable
+	       sleep.setEnabled(false);
+	       exerise.setEnabled(false);
+	       feed.setEnabled(false);
+	       play.setEnabled(false);
+	       vet.setEnabled(false);
+	       gifts.setEnabled(false);
+	       shop.setEnabled(false);
+	       save.setEnabled(false);
+		
 		Timer tempTimer = new Timer();
 		TimerTask tempTask = new TimerTask() {
 			@Override
@@ -135,16 +145,22 @@ public class MainGame extends state
 				System.out.println(pet.getSleep());
 				if(pet.getSleep()==100)
 				{
-					for(JButton button:buttons)
-					{
-						button.enable();
-					}
+					//buttons enable
+				       sleep.setEnabled(true);
+				       exerise.setEnabled(true);
+				       feed.setEnabled(true);
+				       play.setEnabled(true);
+				       vet.setEnabled(true);
+				       gifts.setEnabled(true);
+				       shop.setEnabled(true);
+				       save.setEnabled(true);
+				       
 					tempTimer.cancel();
 				}
 
 			}
 		};
-		//TODO: Disable timer
+		//TODO: disable timer
 		//until sleep = 100, increase sleep by 10 per 2 seconds
 		tempTimer.scheduleAtFixedRate(tempTask, 0, 2000);
 	}
@@ -228,6 +244,16 @@ public class MainGame extends state
         
         //TODO: Display healthbar
         
+        /*
+         sleep
+ 		 excerise
+         feed
+         play
+         vet
+         gifts
+         shop
+         save
+         */
         //Button setup
         sleep = new JButton("Sleep");
         sleep.addActionListener(ea -> sleep());
@@ -243,10 +269,18 @@ public class MainGame extends state
         gifts.addActionListener(ea -> giveGifts());
         shop = new JButton("Enter Shop");
         shop.addActionListener(ea -> enterShop());
-        save = new JButton("Save Game");
+        save = new JButton("Save Game/Exit");
         save.addActionListener(ea -> save());
         
-        
+        //messages
+		mess= new JPanel();
+		mess.setSize(new Dimension(50, 100));
+		mess.setBackground(Color.BLACK);
+		content = new JLabel("default");
+		content.setFont(new Font("Serif",Font.PLAIN,22));
+		mess.add(content);
+		mess.setVisible(true);
+		
         
         
         //Set panel for menu
@@ -263,6 +297,7 @@ public class MainGame extends state
         menu.add(shop);
         menu.add(save);
         frame.add(menu, BorderLayout.SOUTH);
+        frame.add(mess, BorderLayout.NORTH);
         
         //setup actions
         
@@ -276,6 +311,5 @@ public class MainGame extends state
 		stateManager dummy = new stateManager();
 		Pet pet = new Pet();
 		MainGame hi = new MainGame(dummy, pet);
-		hi.render();
 	}
 }
