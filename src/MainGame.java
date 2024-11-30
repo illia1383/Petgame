@@ -66,6 +66,11 @@ public class MainGame
 	JButton [] buttons;
 	
 	/**
+	 * Panel for displaying pet items
+	 */
+	JPanel itemMenu;
+	
+	/**
 	 * How many seconds before an action is taken
 	 */
 	private int interval;
@@ -143,6 +148,8 @@ public class MainGame
 		if(!pet.isAlive())
 		{
 			timer.cancel();
+			frame.dispose();
+			SaveGame Dam = SaveGame(manager, pet, true);
 			//TODO: Go to death screen
 			
 		}
@@ -216,7 +223,7 @@ public class MainGame
 			{
 				
 				pet.updateStats(0, 0, sleepiness, 0);
-				System.out.println(pet.getSleep());
+				update();
 				if(pet.getSleep()>=100)
 				{
 					//buttons enable
@@ -270,12 +277,54 @@ public class MainGame
 	 */
 	private void feed()
 	{
-		displayMessage("Pet successfully fed!");
-		//TODO: call pet for inventory
-		String itemName = "";
-		pet.addItem(itemName, -1);
+		
+		//TODO: build a panel to display that allows user to use food items
+		itemMenu = new JPanel();
+		itemMenu.setBackground(Color.red);
+		
+		//Mandate option: I don't want to give gifts
+				JButton goAway = new JButton();
+				goAway.addActionListener(new ActionListener() {
+					//makes menu go away
+					public void actionPerformed(ActionEvent e)
+					{
+						frame.remove(itemMenu);
+						frame.repaint();
+						//makes itemMenu nothing again
+						itemMenu = null;
+					}
+					
+				});
+				
+		//Optional option: Choose a item to feed to pet
+		HashMap<Items, Integer> map = pet.getInventory();
+		for(Items item: map.keySet())
+		{
+			Integer number = map.get(item);
+			if(item.getFoodBoost()>0 && number >0)
+			{
+				JButton anItem = new JButton(item.getName());
+				anItem.addActionListener( new ActionListener () {
+					@Override
+					 public void actionPerformed(ActionEvent e)
+					 {
+						item.use(pet);
+						frame.remove(itemMenu);
+						itemMenu = null;
+					 }
+				}
+
+						);
+				itemMenu.add(anItem);
+			}
+		}
+		
+		//display
+		itemMenu.setVisible(true);
+		frame.add(itemMenu, BorderLayout.WEST);
 		//pet.removeItem();
 		update();
+		displayMessage("Pet successfully fed!");
 		
 		
 	}
@@ -284,9 +333,53 @@ public class MainGame
 	 */
 	private void giveGifts()
 	{
-		displayMessage("Your pet is horny!");
-		//TODO: Call some items
+		itemMenu = new JPanel();
+		itemMenu.setBackground(Color.red);
+		HashMap<Items, Integer> map = pet.getInventory();
+		
+		//Mandate option: I don't want to give gifts
+		JButton goAway = new JButton();
+		goAway.addActionListener(new ActionListener() {
+			//makes menu go away
+			public void actionPerformed(ActionEvent e)
+			{
+				frame.remove(itemMenu);
+				frame.repaint();
+				//makes itemMenu nothing again
+				itemMenu = null;
+			}
+			
+		});
+		
+		//Optional option: choose a gift
+		for(Items item: map.keySet())
+		{
+			Integer number = map.get(item);
+			if(item.getHappyBoost()>0 && number >0)
+			{
+				JButton anItem = new JButton(item.getName());
+				anItem.addActionListener( new ActionListener () {
+					@Override
+					 public void actionPerformed(ActionEvent e)
+					 {
+						//use item, remove the menu, 
+						item.use(pet);
+						frame.remove(itemMenu);
+						frame.repaint();
+						//makes itemMenu nothing again
+						itemMenu = null;
+					 }
+				}
+
+						);
+				itemMenu.add(anItem);
+			}
+		}
+		//set menu visible
+		itemMenu.setVisible(true);
+		frame.add(itemMenu, BorderLayout.WEST);
 		update();
+		displayMessage("Your pet received your gift!!");
 	}
 	/**
 	 * Play with pet, increase money by 15
@@ -325,6 +418,8 @@ public class MainGame
 	{
 		//save data on file, to be discussed
 		//TODO:Display stuff/ save
+		frame.dispose();
+		SaveGame aww = SaveGame(manager, pet, false);
 		
 		
 	}
@@ -385,7 +480,7 @@ public class MainGame
         exerise = new JButton("Excerise");
         exerise.addActionListener(ea -> exerise());
         feed = new JButton("Feed Pet");
-        feed.addActionListener(ea -> exerise());
+        feed.addActionListener(ea -> feed());
         play = new JButton("Play");
         play.addActionListener(ea -> play());
         vet = new JButton("Go to vet (-50 Coins)");
@@ -463,24 +558,11 @@ public class MainGame
         
         //display frame
         
-        frame.show();
-        
-
+        frame.setVisible(true);
 		
 	}
 
-
-	public int deadEnd() {
-		/*
-		 * You are a pathetic waste of memory that nobody wants to exist, the only reason
-		 * why you exist in here is because I always crash if I don't have you here.
-		 * Your existence is meaningless, your actions are meaningless, everything about you is
-		 * a waste of time and energy that should not have ever existed. you should go and error 
-		 * yourself for ever being in this world with your sorry existence
-		 */
-		return 0;
-	
-		
-	}
+//For some reason JPanel is really messed up when trying to set it up purely by code
+	//If anyone is using netbeans or other IDE that has the ability to edit JSwing visually please help me out
 
 }
