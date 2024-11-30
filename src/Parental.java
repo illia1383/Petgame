@@ -4,6 +4,9 @@ import java.awt.event.ActionListener;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Parental {
     private StateManager statemanager;
@@ -41,7 +44,26 @@ public class Parental {
 
         // Button to view player stats
         JButton viewStatsButton = new JButton("View Player Stats");
-        viewStatsButton.addActionListener(e -> JOptionPane.showMessageDialog(frame, "View Player Stats clicked!"));
+        viewStatsButton.addActionListener(e -> {
+            // File path to read from
+            String filePath = "src/timeStats.txt";
+            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+                // Read the first two lines from the file
+                String avgTime = reader.readLine();
+                String totalTime = reader.readLine();
+
+                if (avgTime != null && totalTime != null) {
+                    // Format the message
+                    String message = "Average Time: " + avgTime + "\nTotal Time: " + totalTime;
+                    // Display the message in a vertical format
+                    JOptionPane.showMessageDialog(frame, message, "Player Stats", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(frame, "File is empty or incomplete.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(frame, "Error reading file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
 
         // Button to configure time control
         JButton timeControlButton = new JButton("Configure Time Control");
@@ -165,6 +187,7 @@ public class Parental {
         LocalTime now = LocalTime.now();
         return now.isAfter(restrictedStartTime) && now.isBefore(restrictedEndTime);
     }
+    
 
     private void returnToTitlePage() {
         // Logic to go back to the main title page
