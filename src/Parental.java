@@ -163,16 +163,11 @@ public class Parental {
         saveButton.addActionListener(e -> {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-<<<<<<< HEAD
-                restrictedStartTime = LocalTime.parse(startTimeField.getText(), formatter);
-                restrictedEndTime = LocalTime.parse(endTimeField.getText(), formatter);
-=======
                 LocalTime temp = LocalTime.parse(startTimeField.getText(), formatter);
                 statemanager.setStartRestriction(temp.getHour(), temp.getMinute());
                 
                 temp = LocalTime.parse(endTimeField.getText(), formatter);
                 statemanager.setEndRestriction(temp.getHour(), temp.getMinute());
->>>>>>> a8add7d28984a1ca56186605098f0c6461911cd8
                 JOptionPane.showMessageDialog(timeDialog, "Restricted times set successfully.");
                 timeDialog.dispose();
             } catch (Exception ex) {
@@ -192,51 +187,12 @@ public class Parental {
         LocalTime now = LocalTime.now();
         return now.isAfter(restrictedStartTime) && now.isBefore(restrictedEndTime);
     }
-<<<<<<< HEAD
-=======
     
->>>>>>> a8add7d28984a1ca56186605098f0c6461911cd8
 
     private void returnToTitlePage() {
         // Logic to go back to the main title page
         System.out.println("Returning to the main title page...");
         Title title = new Title(statemanager);
         title.render();
-<<<<<<< HEAD
-    }
-
-    // Main method for testing
-    public static void main(String[] args) {
-        // Dummy StateManager for testing
-        StateManager dummyStateManager = new StateManager();
-
-        // Create Parental instance and render it
-        Parental parental = new Parental(dummyStateManager);
-        parental.render();
     }
 }
-
-<<<<<<< Updated upstream
-=======
-// Dummy StateManager class for testing
-class StateManager {
-    // Add any necessary methods or properties here
-}
-
-// Dummy Title class for testing
-class Title {
-    private StateManager statemanager;
-
-    public Title(StateManager sm) {
-        statemanager = sm;
-    }
-
-    public void render() {
-        System.out.println("Rendering the Title page...");
-    }
-}
->>>>>>> Stashed changes
-=======
-    }
-}
->>>>>>> a8add7d28984a1ca56186605098f0c6461911cd8

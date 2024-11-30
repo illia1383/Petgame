@@ -6,8 +6,18 @@ import java.util.Calendar;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 
+/**
+ * This class represents the virtual pet. This class handles pet attributes： health, happiness, sleep, hunger, inventory, type and birthdate.
+ * It also renders the pet.
+ * 
+ * Date: Nov 28, 2024
+ * @author Celia Chan
+ */
 
 public class Pet{
+        /*
+         * 
+         */
         private int health;
         private int happiness;
         private int sleep;
@@ -299,7 +309,8 @@ public class Pet{
         // Invisible stats to keep track of it.
         JPanel statsPanel = new JPanel();
         statsPanel.setLayout(new GridLayout(0, 1)); // Single column for stats
-    
+        
+        // I don't know how much I need these renders either
         statsPanel.add(new JLabel(getName()));
         statsPanel.add(healthLabel);
         statsPanel.add(happinessLabel);
@@ -316,6 +327,9 @@ public class Pet{
         statsPanel.setVisible(false); // Make the stats invisible
     }
 
+    /**
+     * This method refreshes the stats of the pet when it is changed
+     */
     private void refreshStats() {
         // Update the text of the labels
         healthLabel.setText(String.valueOf(getHealth()));
@@ -325,14 +339,15 @@ public class Pet{
         moneyLabel.setText(String.valueOf(getMoney()));
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            //  Pet myPet = new Pet("Fluffy", 100, 80, 70, 50, 0);
-            //myPet.render(myPet.frame); // Render the UI
+    // Testing I don't think this is needed
+    // public static void main(String[] args) {
+    //     SwingUtilities.invokeLater(() -> {
+    //         //  Pet myPet = new Pet("Fluffy", 100, 80, 70, 50, 0);
+    //         //myPet.render(myPet.frame); // Render the UI
             
             
-            Dog myDog = new Dog("Dumpling");
-            myDog.render(myDog.getFrame(),myDog.getPanel());
+    //         Dog myDog = new Dog("Dumpling");
+    //         myDog.render(myDog.getFrame(),myDog.getPanel());
 
             // Cat myCat = new Cat("Fish");
             // myCat.render(myCat.getFrame(),myCat.getPanel());
@@ -398,7 +413,7 @@ public class Pet{
             // System.out.println("Attempt to remove Banana: " + removed);
             // System.out.println("Inventory after attempting to remove a non-existent item: " + myPet.getInventory());
            
-            }
-        );
-    }
+    //         }
+    //     );
+    // }
 }
