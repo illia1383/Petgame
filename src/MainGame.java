@@ -125,6 +125,7 @@ public class MainGame
 				pet.updateStats(0, -1, -1, -1);
 				//check if we need to deduct health, actionCheck has an update call
 				actionCheck();
+				update();
 				
 			}
 		};
