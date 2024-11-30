@@ -109,8 +109,10 @@ public class Title {
 
     private boolean checkRestrictions() {
         LocalTime now = LocalTime.now();
-        if (now.isAfter(statemanager.getStartRestriction()) && now.isBefore(statemanager.getEndRestriction())) {
-            return true;
+        if (statemanager.getStartRestriction() != null || statemanager.getEndRestriction() != null) {
+            if (now.isAfter(statemanager.getStartRestriction()) && now.isBefore(statemanager.getEndRestriction())) {
+                return true;
+            }
         }
         return false;
     }

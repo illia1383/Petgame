@@ -5,8 +5,8 @@ import java.io.*;
 
 public class StateManager {
     private Stack<State> stateStack; /**The stack holding the states that are run */
-    private LocalTime startRestriction = LocalTime.of(3,0); /**The start of the time restriction when the user cannot play */
-    private LocalTime endRestriction = LocalTime.of(3, 0); /**The end of the time restriction when the user cannot play */
+    private LocalTime startRestriction = null; /**The start of the time restriction when the user cannot play */
+    private LocalTime endRestriction = null; /**The end of the time restriction when the user cannot play */
     private LocalTime startGame; /**The time the user starts playing the game */
     private LocalTime endGame; /**The time the user closes the game */
 
@@ -37,7 +37,7 @@ public class StateManager {
      */
     public void addTime() {
         try {
-            File fileobj = new File("timeStats.txt");
+            File fileobj = new File("src/timeStats.txt");
             //Reading the information in the file will have 3 variables
             BufferedReader reader = new BufferedReader(new FileReader(fileobj));
             double totalTime = Double.parseDouble(reader.readLine());
