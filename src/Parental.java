@@ -169,32 +169,4 @@ public class Parental {
         Title title = new Title(statemanager);
         title.render();
     }
-
-    // Main method for testing
-    public static void main(String[] args) {
-        // Dummy StateManager for testing
-        StateManager dummyStateManager = new StateManager();
-
-        // Create Parental instance and render it
-        Parental parental = new Parental(dummyStateManager);
-        parental.render();
-    }
-}
-
-// Dummy StateManager class for testing
-class StateManager {
-    // Add any necessary methods or properties here
-}
-
-// Dummy Title class for testing
-class Title {
-    private StateManager statemanager;
-
-    public Title(StateManager sm) {
-        statemanager = sm;
-    }
-
-    public void render() {
-        System.out.println("Rendering the Title page...");
-    }
 }
