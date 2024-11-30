@@ -1,7 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class Tutorial  {
+public class Tutorial {
 
     private StateManager statemanager;
     private Pet pet;
@@ -30,8 +30,8 @@ public class Tutorial  {
         String[] tutorialMessages = {
             "Welcome to the game!",
             "The goal is to keep your pet alive and maintain their other needs.",
-            "Interact with objects by pressing (Add the button they have to press) ",
-            "You can buy items for your pet through the store, These items will help feed your pet and make them happy.",
+            "Interact with objects by pressing (Add the button they have to press).",
+            "You can buy items for your pet through the store. These items will help feed your pet and make them happy.",
             "Good luck and have fun!"
         };
 
@@ -65,11 +65,12 @@ public class Tutorial  {
                 tutorialMessage.setText(tutorialMessages[currentStep[0]]);
                 backButton.setEnabled(true);
                 if (currentStep[0] == tutorialMessages.length - 1) {
-                    //After the finish button is pressed it will move the user to the game screen will have to add more functionality to this button 
                     nextButton.setText("Finish");
                 }
             } else {
                 tutorialDialog.dispose(); // Close dialog when finished
+                frame.dispose(); // Close tutorial frame
+                launchMainGame(); // Launch the main game
             }
         });
 
@@ -94,14 +95,10 @@ public class Tutorial  {
         tutorialDialog.setVisible(true);
     }
 
-    // Main method for testing
-    public static void main(String[] args) {
-        // Create a dummy StateManager for testing
-        StateManager dummyStateManager = new StateManager();
-        Cat pet = new Cat("Bob");
-
-        // Create Tutorial instance and render it
-        Tutorial tutorial = new Tutorial(dummyStateManager, pet);
-        tutorial.render();
+    private void launchMainGame() {
+        // Create and render the MainGame instance
+        MainGame mainGame = new MainGame(statemanager, pet);
+        
     }
+
 }

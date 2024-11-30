@@ -1,12 +1,11 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.*;
+import java.util.List;
 
 public class Parental {
     private StateManager statemanager;
@@ -38,7 +37,40 @@ public class Parental {
             if (isPlayRestricted()) {
                 JOptionPane.showMessageDialog(frame, "Play is restricted during this time!");
             } else {
-                JOptionPane.showMessageDialog(frame, "Revive Dead Pets clicked!");
+                String[] filePaths = {"src/save1.txt", "src/save2.txt", "src/save3.txt"};
+                boolean revivedAnyPet = false;
+
+                for (String filePath : filePaths) {
+                    try {
+                        // Read the file into a list of lines
+                        List<String> lines = Files.readAllLines(Paths.get(filePath));
+
+                        // Check the third line
+                        if (lines.size() >= 3) {
+                            int petHealth = Integer.parseInt(lines.get(2).trim());
+                            if (petHealth == 0) {
+                                // Revive the pet by setting its health to 100
+                                lines.set(2, "100");
+                                revivedAnyPet = true;
+                            }
+                        }
+
+                        // Write the updated lines back to the file
+                        Files.write(Paths.get(filePath), lines);
+                    } catch (IOException ex) {
+                        JOptionPane.showMessageDialog(frame, "Error processing file " + filePath + ": " + ex.getMessage(),
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(frame, "Invalid data in file " + filePath + ": " + ex.getMessage(),
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+
+                if (revivedAnyPet) {
+                    JOptionPane.showMessageDialog(frame, "All dead pets have been revived!");
+                } else {
+                    JOptionPane.showMessageDialog(frame, "No dead pets found.");
+                }
             }
         });
 
@@ -187,7 +219,6 @@ public class Parental {
         LocalTime now = LocalTime.now();
         return now.isAfter(restrictedStartTime) && now.isBefore(restrictedEndTime);
     }
-    
 
     private void returnToTitlePage() {
         // Logic to go back to the main title page

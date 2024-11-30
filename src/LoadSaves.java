@@ -68,7 +68,7 @@ public class LoadSaves {
         save1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (makePet("Save1.txt")) {
+                if (makePet("src/Save1.txt")) {
                     System.out.println("Can play");
                     frame.dispose();
                     MainGame mg = new MainGame(statemanager, pet);
@@ -80,7 +80,7 @@ public class LoadSaves {
         save2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (makePet("Save2.txt")) {
+                if (makePet("src/Save2.txt")) {
                     System.out.println("Can play");
                     frame.dispose();
                     MainGame mg = new MainGame(statemanager, pet);
@@ -92,7 +92,7 @@ public class LoadSaves {
         save3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (makePet("Save3.txt")) {
+                if (makePet("src/Save3.txt")) {
                     System.out.println("Can play");
                     frame.dispose();
                     MainGame mg = new MainGame(statemanager, pet);
