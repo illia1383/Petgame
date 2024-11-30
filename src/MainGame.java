@@ -467,15 +467,6 @@ public class MainGame
 
 		
 	}
-	
-	public static void main(String[] args)
-	{
-		StateManager dummy = new StateManager();
-		Pet pet = new Pet("sup", 100, 100, 100, 100, 100, "Wuliaonie");
-		MainGame test = new MainGame(dummy, pet);
-		
-	}
-
 
 
 	public int deadEnd() {
