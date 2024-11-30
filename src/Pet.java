@@ -15,12 +15,12 @@ public class Pet{
         private boolean alive;
         private boolean hungry;
         private boolean tired;
-        private boolean unhappy;
+        private boolean happy;
         private String name;
         private String birthDate;
         private int money;
         private String type;
-        private HashMap<String, Integer> inventory;
+        private HashMap<Items, Integer> inventory;
         // Dictionary for the inventory
         // Key = item and then the value would be the number of inventory would be the 1
 
@@ -54,11 +54,11 @@ public class Pet{
         this.alive = true;
         this.hungry = false;
         this.tired = false;
-        this.unhappy = false;
+        this.happy = true;
         this.type = type;
         this.inventory = new HashMap<>();
 
-        // Intialize Frame and Panel:
+        // Intialize Frame and Panel: Once main class is finished i might need to set the frame to equal to the given frame
         frame = new JFrame("Simple Window");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 300); // Set the window size
@@ -93,7 +93,9 @@ public class Pet{
         this.sleep = Math.max(0, Math.min(this.sleep, 100));
         this.hunger = Math.max(0, Math.min(this.hunger, 100));
 
-        refreshStats();
+        refreshStats(); // Refresh the stats
+        
+        render(frame,panel); // Re-render frame(when stats are updated)
     }
 
     /**
@@ -146,14 +148,14 @@ public class Pet{
     /**
      * Checks if the pet is happy
      * @param happiness
-     * @return True if the pet is unhappy, false otherwise
+     * @return False the pet is unhappy, True otherwise
      */
     public boolean isHappy(){
         if (this.happiness == 0){
-            this.unhappy = true;
+            this.happy = false;
             }
-        else this.unhappy = false;
-        return unhappy;
+        else this.happy = true;
+        return happy;
     }
 
     /**
@@ -236,7 +238,7 @@ public class Pet{
      * Gets the current inventory of the pet
      * @return the inventory and the quantity of the item
      */
-    public HashMap<String, Integer> getInventory(){
+    public HashMap<Items, Integer> getInventory(){
         return inventory;
     }
 
@@ -245,10 +247,16 @@ public class Pet{
      * @param itemName
      * @param quantity
      */
-    public void addItem(String itemName, int quantity){
+    public void addItem(String itemName, int quantity) {
+        Items item = Items.getItemByName(itemName); // Find the item by its name
+        if (item != null) {
+            inventory.put(item, inventory.getOrDefault(item, 0) + quantity);
+        } else {
+            System.out.println("Error: Item " + itemName + " not found.");
+        }
         // Puts the inventory into the HashMap
         // getOrDefault basically gets the current quantity of the item or if it doesn't already exist in the inventory it defaults the value as 0
-        inventory.put(itemName, inventory.getOrDefault(itemName, 0) + quantity);
+        inventory.put(item, inventory.getOrDefault(itemName, 0) + quantity);
     }
 
     /**
@@ -257,7 +265,7 @@ public class Pet{
      * @param quantity
      * @return True if the item was successfully removed or false if the quantity exceeded the amount of item it could delete or if there is no item with that name in the dictionary 
      */
-    public boolean removeItem(String itemName, int quantity){
+    public boolean removeItem(Items itemName, int quantity){
         // If the item does not exist within the hashmap or if the quantity is more than there is inventory
         if(!inventory.containsKey(itemName) || inventory.get(itemName) < quantity){
             return false; // Cannot remove the item
@@ -284,6 +292,11 @@ public class Pet{
         // JLabel spriteLabel = new JLabel(sprite);
         // panel.add(spriteLabel, BorderLayout.CENTER);
         
+        // For my update stats (Sprite change) method
+        this.frame = frame;
+        this.panel = panel; 
+
+        // Invisible stats to keep track of it.
         JPanel statsPanel = new JPanel();
         statsPanel.setLayout(new GridLayout(0, 1)); // Single column for stats
     
@@ -295,6 +308,7 @@ public class Pet{
         statsPanel.add(moneyLabel);
         statsPanel.add(new JLabel("Birthday: " + getBirthDate()));
         panel.add(statsPanel, BorderLayout.SOUTH);
+        
 
         
         frame.add(panel);
@@ -317,10 +331,11 @@ public class Pet{
             //myPet.render(myPet.frame); // Render the UI
             
             
-            // Dog myDog = new Dog("Dumpling");
-            // myDog.render(myDog.getFrame(),myDog.getPanel());
-            Cat myCat = new Cat("Fish");
-            myCat.render(myCat.getFrame(),myCat.getPanel());
+            Dog myDog = new Dog("Dumpling");
+            myDog.render(myDog.getFrame(),myDog.getPanel());
+
+            // Cat myCat = new Cat("Fish");
+            // myCat.render(myCat.getFrame(),myCat.getPanel());
             // Bear myBear = new Bear("Berry");
             // myBear.render(myBear.getFrame(),myBear.getPanel());
             

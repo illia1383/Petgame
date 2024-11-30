@@ -17,7 +17,6 @@ public class Items {
     private int foodBoost;
     private int happyBoost;
 
-
     // Static list of all items
     private static List<Items> allItems = new ArrayList<>();
 
@@ -35,7 +34,6 @@ public class Items {
         this.quantity = quantity;
         this.foodBoost = foodBoost;
         this.happyBoost = happyBoost;
-
 
         // Add item to the list
         allItems.add(this);
@@ -80,11 +78,15 @@ public class Items {
         // Check if the item boosts hunger (food boost)
         if (foodBoost > 0 && pet.isHungry()) {
             pet.updateStats(0, 0, 0, foodBoost); // Apply food boost to reduce hunger
+        } else if (foodBoost > 0) {
+            System.out.println("Pet is not hungry, no food boost applied.");
         }
 
         // Check if the item boosts happiness (happiness boost)
         if (happyBoost > 0 && pet.isHappy()) {
             pet.updateStats(0, happyBoost, 0, 0); // Boost happiness if the pet is unhappy
+        } else if (happyBoost > 0) {
+            System.out.println("Pet is already happy, no happiness boost applied.");
         }
     }
 
