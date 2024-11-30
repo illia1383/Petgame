@@ -93,7 +93,7 @@ public class LoadSaves {
             }
 
             //Adding the stats of the pet
-            pet.updateStats(petStats[0], petStats[1], petStats[2], petStats[3]);
+            pet.updateStats(-100 + petStats[0], -100 + petStats[1], -100 + petStats[2], -100 + petStats[3]);
             pet.setMoney(petStats[4]);
             
             reader.close();
