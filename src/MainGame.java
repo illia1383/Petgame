@@ -244,10 +244,11 @@ public class MainGame
 	private void sleep()
 	{
 		//pet goes to sleep
-		displayMessage("Sleep is now sleeping...");
+		
 		deepSleep();
 		pet.setMoney(30);
 		update();
+		displayMessage("Sleep is now sleeping...");
 	}
 	
 	/**
@@ -256,10 +257,11 @@ public class MainGame
 	 */
 	private void exerise()
 	{
-		displayMessage("Pet has finished exerising!");
+		
 		pet.updateStats(0, happy, -sleepiness, -hunger*2);
 		pet.setMoney(15);
 		update();
+		displayMessage("Pet has finished exerising!");
 	}
 
 	/**
@@ -269,6 +271,8 @@ public class MainGame
 	{
 		displayMessage("Pet successfully fed!");
 		//TODO: call pet for inventory
+		String itemName = "";
+		pet.addItem(itemName, -1);
 		//pet.removeItem();
 		update();
 		
@@ -464,6 +468,13 @@ public class MainGame
 		
 	}
 	
+	public static void main(String[] args)
+	{
+		StateManager dummy = new StateManager();
+		Pet pet = new Pet("sup", 100, 100, 100, 100, 100, "Wuliaonie");
+		MainGame test = new MainGame(dummy, pet);
+		
+	}
 
 
 
