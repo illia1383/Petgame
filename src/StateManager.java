@@ -4,11 +4,26 @@ import java.util.*;
 import java.io.*;
 
 public class StateManager {
-    private Stack<State> stateStack; /**The stack holding the states that are run */
-    private LocalTime startRestriction = null; /**The start of the time restriction when the user cannot play */
-    private LocalTime endRestriction = null; /**The end of the time restriction when the user cannot play */
-    private LocalTime startGame; /**The time the user starts playing the game */
-    private LocalTime endGame; /**The time the user closes the game */
+    /**
+     * The stack holding the states that are run 
+     */
+    private Stack<State> stateStack; 
+    /**
+     * The start of the time restriction when the user cannot play
+     */
+    private LocalTime startRestriction = null;
+    /**
+     * The end of the time restriction when the user cannot play
+     */
+    private LocalTime endRestriction = null; 
+    /**
+     * The time the user starts playing the game
+     */
+    private LocalTime startGame; 
+    /**
+     * The time the user closes the game
+     */
+    private LocalTime endGame; 
 
     /**
      * Constructor that initializes the statestack, sets the time and starts the game

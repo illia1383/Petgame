@@ -4,29 +4,74 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.*;
+
+/**
+ * The {@code LoadSaves} class provides a UI to load saved game files
+ * and initialize the game based on the selected save.
+ * It interacts with {@code StateManager} to manage the game's state
+ * and uses {@code Pet} objects to represent the loaded pets.
+ */
 public class LoadSaves {
+    /**
+     * Button to load Save 1.
+     */
     private JButton save1;
+
+    /**
+     * Button to load Save 2.
+     */
     private JButton save2;
+
+    /**
+     * Button to load Save 3.
+     */
     private JButton save3;
+
+    /**
+     * Button to exit the save loading screen and return to the title screen.
+     */
     private JButton exit;
+
+    /**
+     * The main frame for the UI.
+     */
     private JFrame frame;
+
+    /**
+     * The {@code Pet} object loaded from a save file.
+     */
     private Pet pet;
+
+    /**
+     * The {@code StateManager} instance used to manage game states.
+     */
     private StateManager statemanager;
 
+     /**
+     * Constructs a {@code LoadSaves} object.
+     *
+     * @param sg the {@code StateManager} used to manage game states
+     */
     public LoadSaves(StateManager sg) {
         statemanager = sg;
         pet = null;
     }
 
+
+    /**
+     * Renders the UI for the save loading screen and sets up
+     * action listeners for the buttons.
+     */
     public void render() {
         prepareUI();
 
         save1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (makePet("src/Save1.txt")) {
+                if (makePet("Save1.txt")) {
                     System.out.println("Can play");
                     frame.dispose();
+                    MainGame mg = new MainGame(statemanager, pet);
                 }
 
             }
@@ -35,9 +80,11 @@ public class LoadSaves {
         save2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (makePet("src/Save2.txt")) {
+                if (makePet("Save2.txt")) {
                     System.out.println("Can play");
                     frame.dispose();
+                    MainGame mg = new MainGame(statemanager, pet);
+                    
                 }
             }
         });
@@ -45,9 +92,11 @@ public class LoadSaves {
         save3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (makePet("src/Save3.txt")) {
+                if (makePet("Save3.txt")) {
                     System.out.println("Can play");
                     frame.dispose();
+                    MainGame mg = new MainGame(statemanager, pet);
+                    
                 }
             }
         });
@@ -62,6 +111,14 @@ public class LoadSaves {
         });
     }
 
+    /**
+     * Reads the save file and creates a {@code Pet} object
+     * based on the file's data.
+     *
+     * @param file the name of the save file to load
+     * @return {@code true} if a valid pet is loaded and ready for the game;
+     *         {@code false} otherwise
+     */
     private boolean makePet(String file) {
         try {
             //Reading the file
@@ -101,15 +158,16 @@ public class LoadSaves {
                 return true;
             }
         } catch (IOException er) {
-            System.out.println("IO Error");
-            System.exit(0);
+            System.out.println("IO Error - Loading the Saves");
         } catch (Exception er) {
-            System.out.println("Other error");
-            System.exit(0);
+            System.out.println("Other error - Loading the Saves");
         }
         return false;
     }
 
+    /**
+     * Prepares the UI components for the save loading screen.
+     */
     private void prepareUI() {
         frame = new JFrame(); //Instance of JFrame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
