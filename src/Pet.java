@@ -287,9 +287,17 @@ public class Pet{
         return true; // Return true that the item has been successfully removed.
     }
 
+    /**
+     * Gets the frame from the main game (May be just for testing)
+     * @return the frame
+     */
     public JFrame getFrame(){
         return frame;
     }
+    /**
+     * Gets the panel from the main game (May be just for testing)
+     * @return the panel
+     */
     public JPanel getPanel(){
         return panel;
     }
@@ -339,7 +347,7 @@ public class Pet{
         moneyLabel.setText(String.valueOf(getMoney()));
     }
 
-    // Testing I don't think this is needed
+    // // Testing I don't think this is needed
     // public static void main(String[] args) {
     //     SwingUtilities.invokeLater(() -> {
     //         //  Pet myPet = new Pet("Fluffy", 100, 80, 70, 50, 0);
@@ -349,70 +357,10 @@ public class Pet{
     //         Dog myDog = new Dog("Dumpling");
     //         myDog.render(myDog.getFrame(),myDog.getPanel());
 
-            // Cat myCat = new Cat("Fish");
-            // myCat.render(myCat.getFrame(),myCat.getPanel());
-            // Bear myBear = new Bear("Berry");
-            // myBear.render(myBear.getFrame(),myBear.getPanel());
-            
-            
-            // // Test: Update Stats - Works
-            // // Before
-            // System.out.println("Health: " + myCat.getHealth());
-            // System.out.println("Happy: " + myCat.getHappiness());
-            // System.out.println("Sleep: " + myCat.getSleep());
-            // System.out.println("Hunger: " + myCat.getHunger());
-            // // After
-            // myCat.updateStats(-90, -50, -20, -10);
-            // System.out.println("Health: " + myCat.getHealth());
-            // System.out.println("Happy: " + myCat.getHappiness());
-            // System.out.println("Sleep: " + myCat.getSleep());
-            // System.out.println("Hunger: " + myCat.getHunger());
-
-            // // Test: Setting money (Adding) - Works
-            // System.out.println("Testing setting money method...");
-            // myPet.setMoney(10);
-            // System.out.println("Adding: " + myPet.getMoney());
-            
-            // // Test: Setting money (Subtracting) - Works
-            // System.out.println("Testing setting money method...");
-            // myPet.setMoney(-5);
-            // System.out.println("Subtracting: " + myPet.getMoney());
-
-            // // Test: Adding inventory to inventory - Works
-            // System.out.println("Testing addItem method...");
-            // myPet.addItem("Apple", 5);
-            // myPet.addItem("Bone", 3);
-            // System.out.println("Inventory after adding inventory: " + myPet.getInventory());
-
-            // // Test: Adding more of an existing item - Works
-            // System.out.println("\nAdding more of an existing item...");
-            // myPet.addItem("Apple", 2);
-            // System.out.println("Inventory after adding more Apples: " + myPet.getInventory());
-
-            // // Test: Removing inventory from inventory - Works
-            // System.out.println("\nTesting removeItem method...");
-            // boolean removed = myPet.removeItem("Apple", 3);
-            // System.out.println("Attempt to remove 3 Apples: " + removed);
-            // System.out.println("Inventory after removing Apples: " + myPet.getInventory());
-
-            // // Test: Removing an item completely - Works
-            // System.out.println("\nRemoving all Bones...");
-            // removed = myPet.removeItem("Bone", 3);
-            // System.out.println("Attempt to remove all Bones: " + removed);
-            // System.out.println("Inventory after removing all Bones: " + myPet.getInventory());
-
-            // // Test: Attempting to remove more inventory than available - Works
-            // System.out.println("\nTrying to remove more Apples than available...");
-            // removed = myPet.removeItem("Apple", 10);
-            // System.out.println("Attempt to remove 10 Apples: " + removed);
-            // System.out.println("Inventory after attempting invalid removal: " + myPet.getInventory());
-
-            // // Test: Attempting to remove an item that doesn't exist - Works
-            // System.out.println("\nTrying to remove an item that doesn't exist...");
-            // removed = myPet.removeItem("Banana", 1);
-            // System.out.println("Attempt to remove Banana: " + removed);
-            // System.out.println("Inventory after attempting to remove a non-existent item: " + myPet.getInventory());
-           
+    //         Cat myCat = new Cat("Fish");
+    //         myCat.render(myCat.getFrame(),myCat.getPanel());
+    //         Bear myBear = new Bear("Berry");
+    //         myBear.render(myBear.getFrame(),myBear.getPanel());
     //         }
     //     );
     // }
