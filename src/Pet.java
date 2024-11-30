@@ -59,9 +59,9 @@ public class Pet{
         this.inventory = new HashMap<>();
 
         // Intialize Frame and Panel: Once main class is finished i might need to set the frame to equal to the given frame
-        frame = new JFrame("Simple Window");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300); // Set the window size
+        //frame = new JFrame("Simple Window");
+        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //frame.setSize(400, 300); // Set the window size
         
         // Create the panel
         panel = new JPanel();
