@@ -58,6 +58,9 @@ public class Title {
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                LocalTime end = LocalTime.now(); //Finding the time the user clicks exit game
+                statemanager.setEndGame(end);
+                statemanager.addTime();
                 frame.dispose();
                 System.exit(0);
             }

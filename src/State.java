@@ -2,7 +2,6 @@ import java.util.*;
 import java.lang.*;
 public class State {
     private StateManager statemanager;
-    private boolean isStatic = false;
 
     public State(StateManager sg) {
         statemanager = sg;
@@ -13,27 +12,8 @@ public class State {
     public void render() {
     }
 
-    public void enterState() {
-        statemanager.getStateStack().push(this);
-    }
-
-    public void exitState() {
-        statemanager.getStateStack().pop();
-        if (statemanager.getStateStack().size() == 0) { //Exit at 0 as this is when the user exits from the main menu
-            System.exit(0);
-        }
-    }
-
     public StateManager getStatemanager() {
         return statemanager;
-    }
-
-    public boolean getIsStatic() {
-        return isStatic;
-    }
-
-    public void setIsStatic(boolean s) {
-        isStatic = s;
     }
 
     public void delay(int delay) {
