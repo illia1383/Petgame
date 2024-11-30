@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-public class ChoosePet extends State{
-=======
 //import java.util.*;
 //import java.awt.*;
 //import java.io.*;
@@ -8,9 +5,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.*;
 public class ChoosePet {
-    private PracticePet pp; //Creating the pet that we will add to later
+    private Pet pet; //Creating the pet that we will add to later
     private JButton dog;
     private JButton bear;
     private JButton cat;
@@ -19,7 +15,7 @@ public class ChoosePet {
 
     public ChoosePet(StateManager sg) {
         statemanager = sg;
-        pp = null;
+        pet = null;
     }
 
     public void render() {
@@ -28,7 +24,7 @@ public class ChoosePet {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Picked a Cat!!");
-                pp = new PracticePet("Timothy", "Cat", true);
+                pet = new Cat("Timothy");
                 runTutorial();
             }
         });
@@ -37,7 +33,7 @@ public class ChoosePet {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Picked the bear!!!");
-                pp = new PracticePet("Bernithy", "Bear", true);
+                pet = new Bear("Bernithy");
                 runTutorial();
             }
         });
@@ -46,7 +42,7 @@ public class ChoosePet {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Picked the dog!!!");
-                pp = new PracticePet("Snoopy", "Dog", true);
+                pet = new Dog("Snoopy");
                 runTutorial();
             }
         });
@@ -87,11 +83,10 @@ public class ChoosePet {
     }
 
     public void runTutorial() {
-        Tutorial tutorial = new Tutorial(statemanager);
+        Tutorial tutorial = new Tutorial(statemanager, pet);
         frame.dispose();
         tutorial.render();
     }
 
->>>>>>> petClass
 
 }

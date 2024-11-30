@@ -1,14 +1,4 @@
 public class PracticePet {
-<<<<<<< HEAD
-    private int health;
-    private String name;
-    private String type;
-
-    public PracticePet(int health, String name, String type) {
-        this.health = health;
-        this.name = name;
-        this.type = type;
-=======
     private int health = 100;
     private String name;
     private String type;
@@ -22,6 +12,5 @@ public class PracticePet {
 
     public boolean getAlive() {
         return alive;
->>>>>>> petClass
     }
 }

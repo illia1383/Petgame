@@ -1,21 +1,14 @@
-<<<<<<< HEAD
-public class Tutorial extends State{
-    private PracticePet practicePet;
-    public Tutorial(StateManager sg, PracticePet p) {
-        super(sg);
-        practicePet = p;
-    }
-
-=======
 import java.awt.*;
 import javax.swing.*;
 
 public class Tutorial  {
 
     private StateManager statemanager;
+    private Pet pet;
 
-    public Tutorial(StateManager sg) {
+    public Tutorial(StateManager sg, Pet pet) {
         statemanager = sg;
+        this.pet = pet;
     }
 
     public void render() {
@@ -105,10 +98,10 @@ public class Tutorial  {
     public static void main(String[] args) {
         // Create a dummy StateManager for testing
         StateManager dummyStateManager = new StateManager();
+        Cat pet = new Cat("Bob");
 
         // Create Tutorial instance and render it
-        Tutorial tutorial = new Tutorial(dummyStateManager);
+        Tutorial tutorial = new Tutorial(dummyStateManager, pet);
         tutorial.render();
     }
->>>>>>> petClass
 }

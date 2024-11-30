@@ -1,33 +1,3 @@
-<<<<<<< HEAD
-import java.util.*;
-public class Title extends State{
-    public Title(StateManager sg) {
-        super(sg);
-    }
-
-    public void render() {
-        System.out.println("\n\n\nTitle/Menu State");
-        System.out.println("1) Start Game");
-        System.out.println("2) Load Save");
-        System.out.println("3) Parental Control Settings");
-    }
-
-    public void update() {
-        Scanner userinput = new Scanner(System.in);
-        int choice = userinput.nextInt();
-        switch (choice) {
-            case 1:
-                //State game
-                break;
-            case 2:
-                //load games
-                break;
-            case 3:
-                //Parental controls
-                break;
-        }
-    }
-=======
 import java.awt.*;
 import java.util.*;
 import java.awt.event.*;
@@ -41,8 +11,6 @@ public class Title {
     private JButton exit;
     private JFrame frame;
     private StateManager statemanager;
-    private LocalTime startRestriction = LocalTime.of(12,0);
-    private LocalTime endRestriction = LocalTime.of(12, 0);
 
     public Title(StateManager sg) {
         statemanager = sg;
@@ -90,6 +58,9 @@ public class Title {
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                LocalTime end = LocalTime.now(); //Finding the time the user clicks exit game
+                statemanager.setEndGame(end);
+                statemanager.addTime();
                 frame.dispose();
                 System.exit(0);
             }
@@ -138,19 +109,13 @@ public class Title {
 
     private boolean checkRestrictions() {
         LocalTime now = LocalTime.now();
-        if (now.isAfter(startRestriction) && now.isBefore(endRestriction)) {
+        if (now.isAfter(statemanager.getStartRestriction()) && now.isBefore(statemanager.getEndRestriction())) {
             return true;
         }
         return false;
     }
 
-    private void setStartRestriction(int hour, int min) {
-        startRestriction = LocalTime.of(hour, min);
-    }
-    private void setEndRestriction(int hour, int min) {
-        endRestriction = LocalTime.of(hour, min);
-    }
+    
 
 
->>>>>>> petClass
 }
