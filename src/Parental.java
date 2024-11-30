@@ -141,8 +141,11 @@ public class Parental {
         saveButton.addActionListener(e -> {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-                restrictedStartTime = LocalTime.parse(startTimeField.getText(), formatter);
-                restrictedEndTime = LocalTime.parse(endTimeField.getText(), formatter);
+                LocalTime temp = LocalTime.parse(startTimeField.getText(), formatter);
+                statemanager.setStartRestriction(temp.getHour(), temp.getMinute());
+                
+                temp = LocalTime.parse(endTimeField.getText(), formatter);
+                statemanager.setEndRestriction(temp.getHour(), temp.getMinute());
                 JOptionPane.showMessageDialog(timeDialog, "Restricted times set successfully.");
                 timeDialog.dispose();
             } catch (Exception ex) {
