@@ -333,6 +333,7 @@ public class Pet{
             
             Dog myDog = new Dog("Dumpling");
             myDog.render(myDog.getFrame(),myDog.getPanel());
+
             // Cat myCat = new Cat("Fish");
             // myCat.render(myCat.getFrame(),myCat.getPanel());
             // Bear myBear = new Bear("Berry");
