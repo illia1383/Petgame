@@ -1,56 +1,117 @@
+import java.time.*;
+import java.time.temporal.*;
 import java.util.*;
+import java.io.*;
+
 public class StateManager {
-    private Stack<State> stateStack;
-    private boolean playing;
-    private boolean running;
+    private Stack<State> stateStack; /**The stack holding the states that are run */
+    private LocalTime startRestriction = LocalTime.of(3,0); /**The start of the time restriction when the user cannot play */
+    private LocalTime endRestriction = LocalTime.of(3, 0); /**The end of the time restriction when the user cannot play */
+    private LocalTime startGame; /**The time the user starts playing the game */
+    private LocalTime endGame; /**The time the user closes the game */
 
+    /**
+     * Constructor that initializes the statestack, sets the time and starts the game
+     */
     public StateManager() {
-        playing = false;
-        running = true;
         stateStack = new Stack<State>();
-        startMenu();
-        //loadStates();
+        
+        //Getting the current local time
+        startGame = LocalTime.now();
+        startMenu(); //Starting the main game
     }
 
-    public void loadStates() {
-        Title titleState = new Title(this);
-        //stateStack.push(titleState);
-    }
-
+    /**
+     * Starting the game by running the Title State
+     */
     public void startMenu() {
         Title titleState = new Title(this);
-        titleState.render();
+        titleState.render(); 
     }
 
-    public void gameLoop() {
-        //Renders then updates then loop until game over
-        while (stateStack.isEmpty() == false) {
-            //Get input
-            stateStack.peek().render();
-            stateStack.peek().update();
+
+    /**
+     * Adding the updated time stats
+     * 
+     * @param duration How long the user played this session
+     */
+    public void addTime() {
+        try {
+            File fileobj = new File("timeStats.txt");
+            //Reading the information in the file will have 3 variables
+            BufferedReader reader = new BufferedReader(new FileReader(fileobj));
+            double totalTime = Double.parseDouble(reader.readLine());
+            double avgTime = Double.parseDouble(reader.readLine());
+            int numTimes = Integer.parseInt(reader.readLine());
+            reader.close();
+
+            //Finding the duration of the the time betwen starting and ending the game
+            long duration = startGame.until(endGame, ChronoUnit.MINUTES);
+
+            //Doing the time calculations required for each time the user plays
+            numTimes++; //Add one to numTimes
+            totalTime += (double)duration;
+            avgTime = Math.round(totalTime / (double)numTimes * 100.0) / 100.0;
+            
+            //Writing back to the file
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileobj));
+            writer.write(Double.toString(totalTime));
+            writer.newLine();
+            writer.write(Double.toString(avgTime));
+            writer.newLine();
+            writer.write(Integer.toString(numTimes));
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("IO Exception - Statemanager time");
+        } catch (Exception e) {
+            System.out.println("Non IOException - Statemanager time" + e.getMessage());
         }
     }
-
-    public Stack<State> getStateStack() {
-        return stateStack;
+    
+    /**
+     * Set the time the game ends
+     * 
+     * @param end
+     */
+    public void setEndGame(LocalTime end) {
+        endGame = end;
     }
 
-    public boolean getPlaying() { return playing; }
-
-    public boolean getRunning() { return running; }
-
-    public void setPlaying(boolean playing) {
-        this.playing = playing;
+    /**
+     * Get the start of the time the user cannot play the game
+     * 
+     * @return LocalTime The start of the restriction
+     */
+    public LocalTime getStartRestriction() {
+        return startRestriction;
     }
 
-    public void setRunning(boolean running) {
-        this.running = running;
+    /**
+     * Get the end of the time the user cannot play the game
+     * 
+     * @return LocalTime The end of the restriction
+     */
+    public LocalTime getEndRestriction() {
+        return endRestriction;
     }
 
-    public void printStack() {
-        for (int i = stateStack.size() - 1; i >= 0; i--) {
-            System.out.println(stateStack.get(i)); //States are still objects so doesnt print properly
-        }
+    /**
+     * Set the start of the time the user cannot play the game
+     * 
+     * @param hour The hour the user cannot play
+     * @param min The minute the user cannot play
+     */
+    public void setStartRestriction(int hour, int min) {
+        startRestriction = LocalTime.of(hour, min);
+    }
+    /**
+     * Set the end of the time the user cannot play the game
+     * 
+     * @param hour The hour the user cannot play
+     * @param min The minute the user cannot play
+     */
+    public void setEndRestriction(int hour, int min) {
+        endRestriction = LocalTime.of(hour, min);
     }
 
     public static void main(String[] args) {

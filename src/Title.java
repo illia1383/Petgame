@@ -11,8 +11,6 @@ public class Title {
     private JButton exit;
     private JFrame frame;
     private StateManager statemanager;
-    private LocalTime startRestriction = LocalTime.of(12,0);
-    private LocalTime endRestriction = LocalTime.of(12, 0);
 
     public Title(StateManager sg) {
         statemanager = sg;
@@ -60,6 +58,9 @@ public class Title {
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                LocalTime end = LocalTime.now(); //Finding the time the user clicks exit game
+                statemanager.setEndGame(end);
+                statemanager.addTime();
                 frame.dispose();
                 System.exit(0);
             }
@@ -108,18 +109,13 @@ public class Title {
 
     private boolean checkRestrictions() {
         LocalTime now = LocalTime.now();
-        if (now.isAfter(startRestriction) && now.isBefore(endRestriction)) {
+        if (now.isAfter(statemanager.getStartRestriction()) && now.isBefore(statemanager.getEndRestriction())) {
             return true;
         }
         return false;
     }
 
-    private void setStartRestriction(int hour, int min) {
-        startRestriction = LocalTime.of(hour, min);
-    }
-    private void setEndRestriction(int hour, int min) {
-        endRestriction = LocalTime.of(hour, min);
-    }
+    
 
 
 }
