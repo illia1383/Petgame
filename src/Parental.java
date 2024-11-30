@@ -4,6 +4,9 @@ import java.awt.event.ActionListener;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Parental {
     private StateManager statemanager;
@@ -41,7 +44,26 @@ public class Parental {
 
         // Button to view player stats
         JButton viewStatsButton = new JButton("View Player Stats");
-        viewStatsButton.addActionListener(e -> JOptionPane.showMessageDialog(frame, "View Player Stats clicked!"));
+        viewStatsButton.addActionListener(e -> {
+            // File path to read from
+            String filePath = "src/timeStats.txt";
+            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+                // Read the first two lines from the file
+                String avgTime = reader.readLine();
+                String totalTime = reader.readLine();
+
+                if (avgTime != null && totalTime != null) {
+                    // Format the message
+                    String message = "Average Time: " + avgTime + "\nTotal Time: " + totalTime;
+                    // Display the message in a vertical format
+                    JOptionPane.showMessageDialog(frame, message, "Player Stats", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(frame, "File is empty or incomplete.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(frame, "Error reading file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
 
         // Button to configure time control
         JButton timeControlButton = new JButton("Configure Time Control");
@@ -141,8 +163,16 @@ public class Parental {
         saveButton.addActionListener(e -> {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+<<<<<<< HEAD
                 restrictedStartTime = LocalTime.parse(startTimeField.getText(), formatter);
                 restrictedEndTime = LocalTime.parse(endTimeField.getText(), formatter);
+=======
+                LocalTime temp = LocalTime.parse(startTimeField.getText(), formatter);
+                statemanager.setStartRestriction(temp.getHour(), temp.getMinute());
+                
+                temp = LocalTime.parse(endTimeField.getText(), formatter);
+                statemanager.setEndRestriction(temp.getHour(), temp.getMinute());
+>>>>>>> a8add7d28984a1ca56186605098f0c6461911cd8
                 JOptionPane.showMessageDialog(timeDialog, "Restricted times set successfully.");
                 timeDialog.dispose();
             } catch (Exception ex) {
@@ -162,12 +192,17 @@ public class Parental {
         LocalTime now = LocalTime.now();
         return now.isAfter(restrictedStartTime) && now.isBefore(restrictedEndTime);
     }
+<<<<<<< HEAD
+=======
+    
+>>>>>>> a8add7d28984a1ca56186605098f0c6461911cd8
 
     private void returnToTitlePage() {
         // Logic to go back to the main title page
         System.out.println("Returning to the main title page...");
         Title title = new Title(statemanager);
         title.render();
+<<<<<<< HEAD
     }
 
     // Main method for testing
@@ -201,3 +236,7 @@ class Title {
     }
 }
 >>>>>>> Stashed changes
+=======
+    }
+}
+>>>>>>> a8add7d28984a1ca56186605098f0c6461911cd8
