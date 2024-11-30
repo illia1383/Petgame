@@ -51,4 +51,9 @@ public class Pet {
 		return 0;
 	}
 
+	public boolean isAlive() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

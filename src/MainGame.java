@@ -139,7 +139,7 @@ public class MainGame extends state
 	 */
 	private void deathCheck()
 	{
-		if(pet.isDead())
+		if(!pet.isAlive())
 		{
 			timer.cancel();
 			//TODO: Go to death screen
