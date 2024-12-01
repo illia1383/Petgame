@@ -656,17 +656,6 @@ public class MainGame
 		row.add(value);
 		return row;
 	}
-	
-	public static void main(String[] args)
-	{	
-		SwingUtilities.invokeLater(() -> {
-			StateManager dummy = new StateManager();
-			Pet pet = new Pet("sup", 100, 1, 100, 100, 100, "Dog");
-			MainGame test = new MainGame(dummy, pet);
-		}
-		);
-		
-	}
 
 
 //For some reason JPanel is really messed up when trying to set it up purely by code
