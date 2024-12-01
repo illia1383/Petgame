@@ -16,7 +16,7 @@ public class Dog extends Pet{
      * @param name
      */
     public Dog(String name){
-        super(name, 100, 80, 100, 40, 0, "Dog"); 
+        super(name, 100, 0, 100, 80, 0, "Dog"); 
     }
 
     /**
@@ -28,31 +28,38 @@ public class Dog extends Pet{
     public void render(JFrame frame, JPanel panel) {
         // Call the parent (Pet) render to reuse the same frame and panel
         super.render(frame, panel);
+        updateSprite(panel);
+     
+    }
 
-        String spritePath = "images/dognormal.png";
+    /** 
+     * Updates the sprite so that the correct sprite correlates to the pet attribute
+     * @param panel
+     */ 
+    @Override 
+    public void updateSprite(JPanel panel){
+        String spritePath = "images/dognormal.png"; // Default Sprite
+
         if(!isAlive()){
-            spritePath = "images/dogdead.png";
+            spritePath = "images/dogdead.png"; // Dog dead state
         } else if (isTired()){
-            spritePath = "images/dogtired.png";
+            spritePath = "images/dogasleep.png"; // Dog tired state
         } else if (!isHappy()){
-            spritePath = "images/dogangry.png";
+            spritePath = "images/dogangry.png"; // Dog angry state
         } else if(isHungry()){
-            spritePath = "images/doghungry.png";
+            spritePath = "images/doghungry.png"; // Dog hungry state
         }else{
-            spritePath = "images/dognormal.png";
+            spritePath = "images/dognormal.png"; // Dog normal state, if all the stats are back to normal
         }
         
-        // Update sprite for the dog 
+        // Update sprite for the dog
         ImageIcon dogSprite = new ImageIcon(spritePath); // Replace with dog image path
-        // Image originalImage = dogSprite.getImage();
-        // Image resizedTest = originalImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
-        // ImageIcon resizeImage = new ImageIcon(resizedTest);
         JLabel spriteLabel = new JLabel(dogSprite);
 
         panel.removeAll();
         panel.add(spriteLabel, BorderLayout.CENTER);
+        
         panel.revalidate();  // Refresh the layout
         panel.repaint();     // Repaint the panel to reflect the changes
-        frame.setVisible(true);
     }
 }

@@ -24,13 +24,6 @@ public class Pet{
         // Dictionary for the inventory
         // Key = item and then the value would be the number of inventory would be the 1
 
-        // GUI Labels for pet statistics
-        private JLabel healthLabel;
-        private JLabel happinessLabel;
-        private JLabel sleepLabel;
-        private JLabel hungerLabel;
-        private JLabel moneyLabel;
-
         // GUI Main Screen Frame
         private JFrame frame;
         private JPanel panel;
@@ -57,24 +50,6 @@ public class Pet{
         this.happy = true;
         this.type = type;
         this.inventory = new HashMap<>();
-
-        // Intialize Frame and Panel: Once main class is finished i might need to set the frame to equal to the given frame
-        //TODO: Deleting or modifying test classes
-        
-    //    frame = new JFrame("Simple Window");        
-    //    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    //    frame.setSize(400, 300); // Set the window size
-        
-        // Create the panel
-        panel = new JPanel();
-        panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
-        panel.setLayout(new BorderLayout()); // Set layout for the panel
-
-        healthLabel = new JLabel(String.valueOf(getHealth()));
-        happinessLabel = new JLabel(String.valueOf(getHappiness()));
-        sleepLabel = new JLabel(String.valueOf(getSleep()));
-        hungerLabel = new JLabel(String.valueOf(getHunger()));
-        moneyLabel = new JLabel(String.valueOf(getMoney()));
     }
 
     /**
@@ -95,9 +70,6 @@ public class Pet{
         this.sleep = Math.max(0, Math.min(this.sleep, 100));
         this.hunger = Math.max(0, Math.min(this.hunger, 100));
 
-        refreshStats(); // Refresh the stats
-        
-        render(frame,panel); // Re-render frame(when stats are updated)
     }
 
     /**
@@ -215,7 +187,7 @@ public class Pet{
         this.money += changeAmount;
         this.money = Math.max(0,this.money);
 
-        refreshStats();
+        // refreshStats();
     }
 
     /**
@@ -279,141 +251,22 @@ public class Pet{
         return true; // Return true that the item has been successfully removed.
     }
 
-    public JFrame getFrame(){
-        return frame;
-    }
-    public JPanel getPanel(){
-        return panel;
-    }
-   
+    /**
+     * Default implementation for render, used in the child classes
+     * @param frame
+     * @param panel
+     */
     public void render(JFrame frame, JPanel panel){
-
-
-        // ImageIcon sprite = new ImageIcon("images/bearcatdog.png"); // Replace with your image path
-        // JLabel spriteLabel = new JLabel(sprite);
-        // panel.add(spriteLabel, BorderLayout.CENTER);
-
-        // For my update stats (Sprite change) method
         this.frame = frame;
-        this.panel = panel; 
-
-        // // // Invisible stats to keep track of it.
-        // JPanel statsPanel = new JPanel();
-        // statsPanel.setLayout(new GridLayout(0, 1)); // Single column for stats
-
-        // // // I don't know how much I need these renders either
-        // // statsPanel.add(new JLabel(getName()));
-        // // statsPanel.add(healthLabel);
-        // // statsPanel.add(happinessLabel);
-        // // statsPanel.add(sleepLabel);
-        // // statsPanel.add(hungerLabel);
-        // // statsPanel.add(moneyLabel);
-        // // statsPanel.add(new JLabel("Birthday: " + getBirthDate()));
-        // // panel.add(statsPanel, BorderLayout.SOUTH);
-
-
-
-        // frame.add(panel);
-        // frame.setVisible(true); // Make the frame visible
-        // statsPanel.setVisible(false); // Make the stats invisible
-     }
-
-
-    private void refreshStats() {
-        // Update the text of the labels
-        healthLabel.setText(String.valueOf(getHealth()));
-        happinessLabel.setText(String.valueOf(getHappiness()));
-        sleepLabel.setText(String.valueOf(getSleep()));
-        hungerLabel.setText(String.valueOf(getHunger()));
-        moneyLabel.setText(String.valueOf(getMoney()));
+        this.panel = panel;
+    
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            //  Pet myPet = new Pet("Fluffy", 100, 80, 70, 50, 0);
-            //myPet.render(myPet.frame); // Render the UI
-            
-            
-            Pet pet = new Pet("Dumpling", 100, 100,100,100, 0, "Dog");
-            pet.render(pet.getFrame(),pet.getPanel());
-            if (pet.getType().equals("Dog")){
-                Dog dog = new Dog(pet.getName());
-                dog.render(pet.getFrame(),pet.getPanel());
-            }
-            else if (pet.getType().equals("Cat")){
-                Cat cat = new Cat(pet.getName());
-                cat.render(pet.getFrame(),pet.getPanel());
-            }
-            else if (pet.getType().equals("Bear")){
-                Bear bear = new Bear(pet.getName());
-                bear.render(pet.getFrame(),pet.getPanel());
-            }
-
-            // Cat myCat = new Cat("Fish");
-            // myCat.render(myCat.getFrame(),myCat.getPanel());
-            // Bear myBear = new Bear("Berry");
-            // myBear.render(myBear.getFrame(),myBear.getPanel());
-            
-            
-            // // Test: Update Stats - Works
-            // // Before
-            // System.out.println("Health: " + myCat.getHealth());
-            // System.out.println("Happy: " + myCat.getHappiness());
-            // System.out.println("Sleep: " + myCat.getSleep());
-            // System.out.println("Hunger: " + myCat.getHunger());
-            // // After
-            // myCat.updateStats(-90, -50, -20, -10);
-            // System.out.println("Health: " + myCat.getHealth());
-            // System.out.println("Happy: " + myCat.getHappiness());
-            // System.out.println("Sleep: " + myCat.getSleep());
-            // System.out.println("Hunger: " + myCat.getHunger());
-
-            // // Test: Setting money (Adding) - Works
-            // System.out.println("Testing setting money method...");
-            // myPet.setMoney(10);
-            // System.out.println("Adding: " + myPet.getMoney());
-            
-            // // Test: Setting money (Subtracting) - Works
-            // System.out.println("Testing setting money method...");
-            // myPet.setMoney(-5);
-            // System.out.println("Subtracting: " + myPet.getMoney());
-
-            // // Test: Adding inventory to inventory - Works
-            // System.out.println("Testing addItem method...");
-            // myPet.addItem("Apple", 5);
-            // myPet.addItem("Bone", 3);
-            // System.out.println("Inventory after adding inventory: " + myPet.getInventory());
-
-            // // Test: Adding more of an existing item - Works
-            // System.out.println("\nAdding more of an existing item...");
-            // myPet.addItem("Apple", 2);
-            // System.out.println("Inventory after adding more Apples: " + myPet.getInventory());
-
-            // // Test: Removing inventory from inventory - Works
-            // System.out.println("\nTesting removeItem method...");
-            // boolean removed = myPet.removeItem("Apple", 3);
-            // System.out.println("Attempt to remove 3 Apples: " + removed);
-            // System.out.println("Inventory after removing Apples: " + myPet.getInventory());
-
-            // // Test: Removing an item completely - Works
-            // System.out.println("\nRemoving all Bones...");
-            // removed = myPet.removeItem("Bone", 3);
-            // System.out.println("Attempt to remove all Bones: " + removed);
-            // System.out.println("Inventory after removing all Bones: " + myPet.getInventory());
-
-            // // Test: Attempting to remove more inventory than available - Works
-            // System.out.println("\nTrying to remove more Apples than available...");
-            // removed = myPet.removeItem("Apple", 10);
-            // System.out.println("Attempt to remove 10 Apples: " + removed);
-            // System.out.println("Inventory after attempting invalid removal: " + myPet.getInventory());
-
-            // // Test: Attempting to remove an item that doesn't exist - Works
-            // System.out.println("\nTrying to remove an item that doesn't exist...");
-            // removed = myPet.removeItem("Banana", 1);
-            // System.out.println("Attempt to remove Banana: " + removed);
-            // System.out.println("Inventory after attempting to remove a non-existent item: " + myPet.getInventory());
-           
-            }
-        );
+    /**
+     * Default implementation for updateSprite, used in the child classes
+     * @param panel
+     */
+    public void updateSprite(JPanel panel){
+        //Default Implementation; Won't do anything by itself.
     }
 }
