@@ -64,6 +64,7 @@ public class LoadSaves {
     public void render() {
         prepareUI();
 
+        //If the user presses the save1 button do the following actions
         save1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -76,6 +77,7 @@ public class LoadSaves {
             }
         });
 
+        //If the user presses the save2 button do the following actions
         save2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -88,6 +90,7 @@ public class LoadSaves {
             }
         });
 
+        //If the user presses the save3 button do the following actions
         save3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -100,6 +103,7 @@ public class LoadSaves {
             }
         });
 
+        //If the user presses the exit button do the following actions
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
