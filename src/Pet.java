@@ -266,7 +266,7 @@ public class Pet{
      * Default implementation for updateSprite, used in the child classes
      * @param panel
      */
-    public void updateSprite(JPanel panel){
+    public void updateSprite(JPanel panel, boolean flipped){
         //Default Implementation; Won't do anything by itself.
     }
 }

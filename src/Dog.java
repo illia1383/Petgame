@@ -28,7 +28,7 @@ public class Dog extends Pet{
     public void render(JFrame frame, JPanel panel) {
         // Call the parent (Pet) render to reuse the same frame and panel
         super.render(frame, panel);
-        updateSprite(panel);
+        updateSprite(panel, false);
      
     }
 
@@ -37,21 +37,36 @@ public class Dog extends Pet{
      * @param panel
      */ 
     @Override 
-    public void updateSprite(JPanel panel){
+    public void updateSprite(JPanel panel, boolean flipped){
         String spritePath = "images/dognormal.png"; // Default Sprite
-
-        if(!isAlive()){
-            spritePath = "images/dogdead.png"; // Dog dead state
-        } else if (isTired()){
-            spritePath = "images/dogasleep.png"; // Dog tired state
-        } else if (!isHappy()){
-            spritePath = "images/dogangry.png"; // Dog angry state
-        } else if(isHungry()){
-            spritePath = "images/doghungry.png"; // Dog hungry state
-        }else{
-            spritePath = "images/dognormal.png"; // Dog normal state, if all the stats are back to normal
+        if(flipped == false){
+            if(!isAlive()){
+                spritePath = "images/dogdead.png"; // Dog dead state
+            } else if (isTired()){
+                spritePath = "images/dogasleep.png"; // Dog tired state
+            } else if (!isHappy()){
+                spritePath = "images/dogangry.png"; // Dog angry state
+            } else if(isHungry()){
+                spritePath = "images/doghungry.png"; // Dog hungry state
+            }else{
+                spritePath = "images/dognormal.png"; // Dog normal state, if all the stats are back to normal
+            }
         }
-        
+        else{
+            if(!isAlive()){
+                spritePath = "images/dogdead_flip.png"; // Dog dead state
+            } else if (isTired()){
+                spritePath = "images/dogasleep_flip.png"; // Dog tired state
+            } else if (!isHappy()){
+                spritePath = "images/dogangry_flip.png"; // Dog angry state
+            } else if(isHungry()){
+                spritePath = "images/doghungry_flip.png"; // Dog hungry state
+            }else{
+                spritePath = "images/dognormal_flip.png"; // Dog normal state, if all the stats are back to normal
+            }
+
+        }
+            
         // Update sprite for the dog
         ImageIcon dogSprite = new ImageIcon(spritePath); // Replace with dog image path
         JLabel spriteLabel = new JLabel(dogSprite);
@@ -62,4 +77,5 @@ public class Dog extends Pet{
         panel.revalidate();  // Refresh the layout
         panel.repaint();     // Repaint the panel to reflect the changes
     }
+
 }

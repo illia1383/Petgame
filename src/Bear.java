@@ -29,7 +29,7 @@ public class Bear extends Pet{
     public void render(JFrame frame, JPanel panel) {
         // Call the parent (Pet) render to reuse the same frame and panel
         super.render(frame, panel);
-        updateSprite(panel);
+        updateSprite(panel, false);
      
     }
 
@@ -38,19 +38,34 @@ public class Bear extends Pet{
      * @param panel
      */ 
     @Override 
-    public void updateSprite(JPanel panel){
+    public void updateSprite(JPanel panel, boolean flipped){
         String spritePath = "images/bearnormal.png"; // Bear default sprite
 
-        if(!isAlive()){
-            spritePath = "images/beardead.png"; // Bear dead state
-        } else if (isTired()){
-            spritePath = "images/bearasleep.png"; // Bear asleep state
-        } else if (!isHappy()){
-            spritePath = "images/bearangry.png"; // Bear angry state
-        } else if(isHungry()){
-            spritePath = "images/bearhungry.png"; // Bear hungry state
-        }else{
-            spritePath = "images/bearnormal.png"; // Bear normal state if all stats are back to normal
+        if(flipped = false){
+            if(!isAlive()){
+                spritePath = "images/beardead.png"; // Bear dead state
+            } else if (isTired()){
+                spritePath = "images/bearasleep.png"; // Bear asleep state
+            } else if (!isHappy()){
+                spritePath = "images/bearangry.png"; // Bear angry state
+            } else if(isHungry()){
+                spritePath = "images/bearhungry.png"; // Bear hungry state
+            }else{
+                spritePath = "images/bearnormal.png"; // Bear normal state if all stats are back to normal
+            }
+        }
+        else{
+            if(!isAlive()){
+                spritePath = "images/beardead_flip.png"; // Bear dead state
+            } else if (isTired()){
+                spritePath = "images/bearasleep_flip.png"; // Bear asleep state
+            } else if (!isHappy()){
+                spritePath = "images/bearangry_flip.png"; // Bear angry state
+            } else if(isHungry()){
+                spritePath = "images/bearhungry_flip.png"; // Bear hungry state
+            }else{
+                spritePath = "images/bearnormal_flip.png"; // Bear normal state if all stats are back to normal
+            }
         }
         
         // Update sprite for the bear
@@ -64,3 +79,4 @@ public class Bear extends Pet{
         panel.repaint();     // Repaint the panel to reflect the changes
     }
 }
+Bear.java
