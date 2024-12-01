@@ -133,6 +133,7 @@ public class MainGame
 				//check if we need to deduct health, actionCheck has an update call
 				actionCheck();
 				update();
+				needsSleep();
 			}
 		};
 		
@@ -140,7 +141,14 @@ public class MainGame
 		
 	}
 	
-	
+	/**
+	 * Checks if the pet is tired, if it is, go immediately to sleep
+	 */
+	private void needsSleep(){
+		if(pet.isTired())
+			sleep();
+	}
+
 	/**
 	 * Checks if the pet has died
 	 */
@@ -268,9 +276,10 @@ public class MainGame
 	{
 		displayMessage("Pet has finished exerising!");
 		pet.updateStats(0, happy, 0-sleepiness, 0-hunger*2);
-		actionCheck();
 		pet.setMoney(15);
+		actionCheck();
 		update();
+		needsSleep();
 
 	}
 
@@ -396,6 +405,7 @@ public class MainGame
 		actionCheck();
 		pet.setMoney(15);
 		update();
+		needsSleep();
 	}
 	/**
 	 * Bring pet to vet, restores everything
@@ -405,7 +415,6 @@ public class MainGame
 	{
 		displayMessage("Pet has returned from the vet");
 		pet.updateStats(100, 100, 100, 100);
-		//NOTE: Not sure what to do here
 		pet.setMoney(-50);
 		update();
 	}
