@@ -11,7 +11,7 @@ import java.awt.event.KeyAdapter;
 /**
  * 
  * Date: NAN
- * @author kevinlam, celica
+ * @author kevinlam, Celia Chan
  *
  */
 
@@ -25,6 +25,7 @@ public class MainGame
 	 * The Pet
 	 */
 	private Pet pet;
+	JPanel petBox;
 	/**
 	 * Timer
 	 */
@@ -130,6 +131,9 @@ public class MainGame
 			public void run()
 			{
 				pet.updateStats(0, -1, -1, -1);
+				if(pet.getType().equals("Dog")){
+					pet.updateSprite(petBox);
+				}
 				//check if we need to deduct health, actionCheck has an update call
 				actionCheck();
 				update();
@@ -435,7 +439,7 @@ public class MainGame
 	 * method to update the displayed statistics for the player
 	 */
 	private void update()
-	{
+	{	
 		healthBar.setText(String.valueOf(pet.getHealth()));
 		sleepBar.setText(String.valueOf(pet.getSleep()));
 		happinessBar.setText(String.valueOf(pet.getHappiness()));
@@ -462,7 +466,7 @@ public class MainGame
 		centerPanel.setLayout(new BorderLayout()); // Use BorderLayout to stack topPanel and petBox
 
 		// Creates the pet box for displaying the pet - Celia Chan
-		JPanel petBox= new JPanel();
+		petBox= new JPanel();
 		petBox.setLayout(new FlowLayout());
 		petBox.setBackground(Color.WHITE); // Set background color for visibility
     	petBox.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3)); // Add a border for visibility
@@ -632,7 +636,7 @@ public class MainGame
         petBox.setVisible(true);
 		stats.setVisible(true);
         frame.setVisible(true);
-		
+
 	}
 
 	// Helper method to create a horizontal row - Celia Chan
@@ -643,13 +647,12 @@ public class MainGame
 		row.add(value);
 		return row;
 	}
-
 	
 	public static void main(String[] args)
 	{	
 		SwingUtilities.invokeLater(() -> {
 			StateManager dummy = new StateManager();
-			Pet pet = new Pet("sup", 100, 100, 100, 100, 100, "Dog");
+			Pet pet = new Pet("sup", 100, 1, 100, 100, 100, "Dog");
 			MainGame test = new MainGame(dummy, pet);
 		}
 		);

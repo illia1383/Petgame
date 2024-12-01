@@ -24,30 +24,47 @@ public class Cat extends Pet{
      * @param frame
      * @param panel
      */
+    /**
+     * Renders the pet sprites and changes them depending on the emotional stats of the pet
+     * @param frame
+     * @param panel
+     */
     @Override
     public void render(JFrame frame, JPanel panel) {
         // Call the parent (Pet) render to reuse the same frame and panel
         super.render(frame, panel);
+        updateSprite(panel);
+     
+    }
 
-        String spritePath = "images/catnormal.png"; // Regular state of pet
+    /** 
+     * Updates the sprite so that the correct sprite correlates to the pet attribute
+     * @param panel
+     */ 
+    @Override 
+    public void updateSprite(JPanel panel){
+        String spritePath = "images/catnormal.png"; // Cat default sprite
+
         if(!isAlive()){
-            spritePath = "images/catdead.png";
+            spritePath = "images/catdead.png"; // Cat dead state
         } else if (isTired()){
-            spritePath = "images/cattired.png";
+            spritePath = "images/catasleep.png"; // Cat tired state
         } else if (!isHappy()){
-            spritePath = "images/catangry.png";
+            spritePath = "images/catangry.png"; // Cat angry state
         } else if(isHungry()){
-            spritePath = "images/cathungry.png";
+            spritePath = "images/cathungry.png"; // Cat hungrystate
         }else{
-            spritePath = "images/catnormal.png";
+            spritePath = "images/catnormal.png"; // Cat normal state (If all stats are back to normal)
         }
         
-        // Update Cat sprite
-        ImageIcon catSprite = new ImageIcon(spritePath); // Replace with cat image path
-        JLabel spriteLabel = new JLabel(catSprite);
+        // Update sprite for the cat
+        ImageIcon dogSprite = new ImageIcon(spritePath); // Replace with cat image path
+        JLabel spriteLabel = new JLabel(dogSprite);
+
+        panel.removeAll();
         panel.add(spriteLabel, BorderLayout.CENTER);
-
-       
-
+        
+        panel.revalidate();  // Refresh the layout
+        panel.repaint();     // Repaint the panel to reflect the changes
     }
 }
