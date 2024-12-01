@@ -461,7 +461,7 @@ public class MainGame
 		JPanel centerPanel = new JPanel();
 		centerPanel.setLayout(new BorderLayout()); // Use BorderLayout to stack topPanel and petBox
 
-
+		// Creates the pet box for displaying the pet - Celia Chan
 		JPanel petBox= new JPanel();
 		petBox.setLayout(new FlowLayout());
 		petBox.setBackground(Color.WHITE); // Set background color for visibility
@@ -481,9 +481,6 @@ public class MainGame
 			
 		}
 		
-		
-		
-	
         
         //Panel for statistic of pets
         stats = new JPanel();
@@ -491,7 +488,7 @@ public class MainGame
 		stats.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
 		stats.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-		// Add labels for each stat - Ceclia
+		// Add labels for each stat - Celia Chan
 		JLabel healthLabel = new JLabel("Health: ");
 		JLabel sleepLabel = new JLabel("Sleep: ");
 		JLabel happinessLabel = new JLabel("Happiness: ");
@@ -638,7 +635,7 @@ public class MainGame
 		
 	}
 
-	// Helper method to create a horizontal row
+	// Helper method to create a horizontal row - Celia Chan
 	private JPanel createStatRow(JLabel label, JLabel value) {
 		JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT)); // Align rows to the left
 		row.setBackground(Color.decode("#9BB641")); // Match panel background
