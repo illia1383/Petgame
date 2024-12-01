@@ -30,6 +30,9 @@ public class Bear extends Pet{
         // Call the parent (Pet) render to reuse the same frame and panel
         super.render(frame, panel);
 
+        JLabel testLabel = new JLabel("Test Label");
+        panel.add(testLabel);
+
         String spritePath = "images/bearnormal.png"; // Regular state of pet (Default)
         if(!isAlive()){
             spritePath = "images/beardead.png"; // Dead state

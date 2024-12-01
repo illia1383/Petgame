@@ -1,7 +1,6 @@
 import java.util.*;
 import javax.swing.*;
 import java.util.Timer;
-import javax.swing.JFrame;
 import java.awt.*;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
@@ -458,6 +457,33 @@ public class MainGame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(2000, 1000);
         frame.setBackground(Color.gray);
+
+		JPanel centerPanel = new JPanel();
+		centerPanel.setLayout(new BorderLayout()); // Use BorderLayout to stack topPanel and petBox
+
+
+		JPanel petBox= new JPanel();
+		petBox.setLayout(new FlowLayout());
+		petBox.setBackground(Color.WHITE); // Set background color for visibility
+    	petBox.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3)); // Add a border for visibility
+		
+		if (pet.getType().equals("Dog")){
+			Dog dog = new Dog(pet.getName());
+			dog.render(frame,petBox);
+		}
+		else if (pet.getType().equals("Cat")){
+			Cat cat = new Cat(pet.getName());
+			cat.render(frame,petBox);
+		}
+		else if (pet.getType().equals("Bear")){
+			Bear bear = new Bear(pet.getName());
+			bear.render(frame,petBox);
+			
+		}
+		
+		
+		
+	
         
         //Panel for statistic of pets
         stats = new JPanel();
@@ -528,7 +554,7 @@ public class MainGame
         delay = new Timer();
 		mess= new JPanel();
 		mess.setSize(new Dimension(50, 100));
-		mess.setBackground(Color.BLACK);
+		mess.setBackground(Color.decode("#414643"));
 		content = new JLabel("default");
 		content.setFont(new Font("Serif",Font.PLAIN,22));
 		content.setForeground(Color.white);
@@ -537,12 +563,16 @@ public class MainGame
 
 
 		JPanel topPanel = new JPanel();
-		topPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0)); // Center align the stats panel
+		topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS)); // Vertical layout for stats and messages
 		topPanel.add(stats);
-		topPanel.add(Box.createVerticalStrut(100));
 		topPanel.add(mess);
-		// Add stats panel to the center of the frame
-		frame.add(topPanel, BorderLayout.CENTER);
+
+		centerPanel.add(topPanel, BorderLayout.NORTH); // Stats and messages on top
+		centerPanel.add(petBox, BorderLayout.CENTER);  // Pet box in the center
+
+		
+	
+	
 		// frame.add(mess, BorderLayout.NORTH);
 			
         
@@ -595,11 +625,15 @@ public class MainGame
         menu.add(gifts);
         menu.add(shop);
 
-
+		// Add stats panel to the center of the frame
+		frame.add(centerPanel, BorderLayout.CENTER);		
         frame.add(menu, BorderLayout.SOUTH);
+
+	
           
         //display frame
-        
+        petBox.setVisible(true);
+		stats.setVisible(true);
         frame.setVisible(true);
 		
 	}
@@ -615,10 +649,13 @@ public class MainGame
 
 	
 	public static void main(String[] args)
-	{
-		StateManager dummy = new StateManager();
-		Pet pet = new Pet("sup", 100, 100, 100, 100, 100, "Wuliaonie");
-		MainGame test = new MainGame(dummy, pet);
+	{	
+		SwingUtilities.invokeLater(() -> {
+			StateManager dummy = new StateManager();
+			Pet pet = new Pet("sup", 100, 100, 100, 100, 100, "Dog");
+			MainGame test = new MainGame(dummy, pet);
+		}
+		);
 		
 	}
 

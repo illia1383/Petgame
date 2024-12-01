@@ -48,7 +48,11 @@ public class Dog extends Pet{
         // Image resizedTest = originalImage.getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         // ImageIcon resizeImage = new ImageIcon(resizedTest);
         JLabel spriteLabel = new JLabel(dogSprite);
-        panel.add(spriteLabel, BorderLayout.CENTER);
 
+        panel.removeAll();
+        panel.add(spriteLabel, BorderLayout.CENTER);
+        panel.revalidate();  // Refresh the layout
+        panel.repaint();     // Repaint the panel to reflect the changes
+        frame.setVisible(true);
     }
 }

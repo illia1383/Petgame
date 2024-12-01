@@ -61,9 +61,9 @@ public class Pet{
         // Intialize Frame and Panel: Once main class is finished i might need to set the frame to equal to the given frame
         //TODO: Deleting or modifying test classes
         
-       // frame = new JFrame("Simple Window");        
-       // frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-       // frame.setSize(400, 300); // Set the window size
+    //    frame = new JFrame("Simple Window");        
+    //    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    //    frame.setSize(400, 300); // Set the window size
         
         // Create the panel
         panel = new JPanel();
@@ -297,25 +297,25 @@ public class Pet{
         this.frame = frame;
         this.panel = panel; 
 
-    //     // // Invisible stats to keep track of it.
-    //     // JPanel statsPanel = new JPanel();
-    //     // statsPanel.setLayout(new GridLayout(0, 1)); // Single column for stats
+        // // // Invisible stats to keep track of it.
+        // JPanel statsPanel = new JPanel();
+        // statsPanel.setLayout(new GridLayout(0, 1)); // Single column for stats
 
-    //     // // I don't know how much I need these renders either
-    //     // statsPanel.add(new JLabel(getName()));
-    //     // statsPanel.add(healthLabel);
-    //     // statsPanel.add(happinessLabel);
-    //     // statsPanel.add(sleepLabel);
-    //     // statsPanel.add(hungerLabel);
-    //     // statsPanel.add(moneyLabel);
-    //     // statsPanel.add(new JLabel("Birthday: " + getBirthDate()));
-    //     // panel.add(statsPanel, BorderLayout.SOUTH);
+        // // // I don't know how much I need these renders either
+        // // statsPanel.add(new JLabel(getName()));
+        // // statsPanel.add(healthLabel);
+        // // statsPanel.add(happinessLabel);
+        // // statsPanel.add(sleepLabel);
+        // // statsPanel.add(hungerLabel);
+        // // statsPanel.add(moneyLabel);
+        // // statsPanel.add(new JLabel("Birthday: " + getBirthDate()));
+        // // panel.add(statsPanel, BorderLayout.SOUTH);
 
 
 
-    //     frame.add(panel);
-    //     frame.setVisible(true); // Make the frame visible
-    //     statsPanel.setVisible(false); // Make the stats invisible
+        // frame.add(panel);
+        // frame.setVisible(true); // Make the frame visible
+        // statsPanel.setVisible(false); // Make the stats invisible
      }
 
 
@@ -334,8 +334,20 @@ public class Pet{
             //myPet.render(myPet.frame); // Render the UI
             
             
-            Dog myDog = new Dog("Dumpling");
-            myDog.render(myDog.getFrame(),myDog.getPanel());
+            Pet pet = new Pet("Dumpling", 100, 100,100,100, 0, "Dog");
+            pet.render(pet.getFrame(),pet.getPanel());
+            if (pet.getType().equals("Dog")){
+                Dog dog = new Dog(pet.getName());
+                dog.render(pet.getFrame(),pet.getPanel());
+            }
+            else if (pet.getType().equals("Cat")){
+                Cat cat = new Cat(pet.getName());
+                cat.render(pet.getFrame(),pet.getPanel());
+            }
+            else if (pet.getType().equals("Bear")){
+                Bear bear = new Bear(pet.getName());
+                bear.render(pet.getFrame(),pet.getPanel());
+            }
 
             // Cat myCat = new Cat("Fish");
             // myCat.render(myCat.getFrame(),myCat.getPanel());
