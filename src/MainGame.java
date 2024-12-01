@@ -150,7 +150,7 @@ public class MainGame
 		{
 			timer.cancel();
 			frame.dispose();
-			//SaveGame Dam = SaveGame(manager, pet, true);
+			SaveGame Dam = new SaveGame(manager, pet, true);
 			//TODO: Go to death screen
 			
 		}
@@ -425,7 +425,7 @@ public class MainGame
 		//save data on file, to be discussed
 		//TODO:Display stuff/ save
 		frame.dispose();
-		//SaveGame aww = SaveGame(manager, pet, false);
+		SaveGame aww = new SaveGame(manager, pet, false);
 		
 		
 	}

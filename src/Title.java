@@ -4,6 +4,12 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.lang.*;
 import java.time.*;
+
+/**
+ * The Title class represents the title screen of the game. It provides the user
+ * with several options including starting a new game, loading a saved game, 
+ * managing parental controls, or exiting the game.
+ */
 public class Title {
     private JButton startGame;
     private JButton loadSave;
@@ -12,18 +18,32 @@ public class Title {
     private JFrame frame;
     private StateManager statemanager;
 
+    /**
+     * Constructs a Title object with the specified StateManager.
+     * 
+     * @param sg The StateManager to be used by this Title screen.
+     */
     public Title(StateManager sg) {
         statemanager = sg;
     }
 
+    /**
+     * Renders the title screen UI and sets up the event listeners for the buttons.
+     * When a button is clicked, it triggers the appropriate action based on the
+     * current restrictions and choice.
+     */
     public void render() {
         prepareUI();
+        
+        //If the user presses the start game button do the following actions
         startGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //Checking if the user can play
                 if (checkRestrictions()) {
                     System.out.println("Cannot play right now!");
                 } else {
+                    //If they can opening the choose pet screen
                     frame.dispose();
                     System.out.println("Choose Pet");
                     ChoosePet choosepet = new ChoosePet(statemanager);
@@ -32,12 +52,15 @@ public class Title {
             }
         });
 
+        //If the user presses the load save button do the following actions
         loadSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //Checking if the user can play
                 if (checkRestrictions()) {
                     System.out.println("Cannot play right now!");
                 } else {
+                    //If they can load the saves
                     LoadSaves ls = new LoadSaves(statemanager);
                     ls.render();
                     frame.dispose();
@@ -45,9 +68,11 @@ public class Title {
             }
         });
 
+        //If the user presses the parental controls button do the following actions
         parentalControls.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //Opening up the parental class and disposing the frame
                 frame.dispose();
                 Parental parental = new Parental(statemanager);
                 parental.render();
@@ -55,19 +80,24 @@ public class Title {
             }
         });
 
+        //If the user presses the exit button do the following actions
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 LocalTime end = LocalTime.now(); //Finding the time the user clicks exit game
+                //Using the time the user ends the game to update the stats
                 statemanager.setEndGame(end);
                 statemanager.addTime();
                 frame.dispose();
-                System.exit(0);
+                System.exit(0); //Exitting the game 
             }
         });
 
     }
 
+    /**
+     * Prepares the UI components of the title screen including buttons and labels.
+     */
     private void prepareUI() {
         frame = new JFrame(); //Instance of JFrame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -107,6 +137,12 @@ public class Title {
         frame.add(exit);
     }
 
+     /**
+     * Checks if the current time is within the restricted playing time.
+     * If it is within the restriction, it returns true; otherwise, false.
+     * 
+     * @return boolean True if the current time is within the restricted playing time, otherwise false.
+     */
     private boolean checkRestrictions() {
         LocalTime now = LocalTime.now();
         if (statemanager.getStartRestriction() != null && statemanager.getEndRestriction() != null) {
