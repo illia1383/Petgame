@@ -625,5 +625,6 @@ public class MainGame
 
 //For some reason JPanel is really messed up when trying to set it up purely by code
 	//If anyone is using netbeans or other IDE that has the ability to edit JSwing visually please help me out
+		//resolved
 
 }
