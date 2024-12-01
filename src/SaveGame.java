@@ -72,8 +72,11 @@ public class SaveGame {
         save1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //Saving the pet to Save1
                 savePet("src/Save1.txt");
+                //Disposing the frame
                 frame.dispose();
+                //Going back to the title screen
                 Title title = new Title(statemanager);
                 title.render();
             }
@@ -82,8 +85,11 @@ public class SaveGame {
         save2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //Saving the pet to Save2
                 savePet("src/Save2.txt");
+                //Disposing the frame
                 frame.dispose();
+                //Going back to the title screen
                 Title title = new Title(statemanager);
                 title.render();
             }
@@ -92,8 +98,11 @@ public class SaveGame {
         save3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //Saving the pet to Save3
                 savePet("src/Save3.txt");
+                //Disposing the frame
                 frame.dispose();
+                //Going back to the title screen
                 Title title = new Title(statemanager);
                 title.render();
             }
@@ -102,11 +111,15 @@ public class SaveGame {
         returnToGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //If the user did not die
                 if (died == false) {
+                    //Get rid of the frame
                     frame.dispose();
+                    //And go back to the main game with the same pet
                     MainGame mg = new MainGame(statemanager, pet);
                     System.out.println("Returning to Main Game");
                 } 
+                //If the user did die, you cannot return to the main game and print a message saying that
                 System.out.println("Pet dead, cannot play the Main Game");  
             }
         });
@@ -125,6 +138,7 @@ public class SaveGame {
      */
     private void savePet(String file) {
         try {
+            //Writing all of the pets stats to the specified file
             BufferedWriter writer = new BufferedWriter(new FileWriter(file));
             writer.write(pet.getType());
             writer.newLine();
