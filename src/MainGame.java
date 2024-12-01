@@ -12,7 +12,7 @@ import java.awt.event.KeyAdapter;
 /**
  * 
  * Date: NAN
- * @author kevinlam
+ * @author kevinlam, celica
  *
  */
 
@@ -52,6 +52,7 @@ public class MainGame
 	JLabel sleepBar;
 	JLabel happinessBar;
 	JLabel fullnessBar;
+	JLabel scoreBar;
 	/**
 	 * Buttons for the page
 	 */
@@ -114,6 +115,8 @@ public class MainGame
 		createTimer();
 
 
+
+
 	}
 	
 	/**
@@ -131,7 +134,6 @@ public class MainGame
 				//check if we need to deduct health, actionCheck has an update call
 				actionCheck();
 				update();
-				
 			}
 		};
 		
@@ -149,7 +151,7 @@ public class MainGame
 		{
 			timer.cancel();
 			frame.dispose();
-			SaveGame Dam = new SaveGame(manager, pet, true);
+			//SaveGame Dam = SaveGame(manager, pet, true);
 			//TODO: Go to death screen
 			
 		}
@@ -236,7 +238,7 @@ public class MainGame
 				       shop.setEnabled(true);
 				       save.setEnabled(true);
 				       frame.addKeyListener(listenBro);
-				       
+				    //cancel timer   
 					tempTimer.cancel();
 				}
 
@@ -252,11 +254,11 @@ public class MainGame
 	private void sleep()
 	{
 		//pet goes to sleep
-		
+		displayMessage("Sleep is now sleeping...");
 		deepSleep();
 		pet.setMoney(30);
 		update();
-		displayMessage("Sleep is now sleeping...");
+
 	}
 	
 	/**
@@ -265,11 +267,12 @@ public class MainGame
 	 */
 	private void exerise()
 	{
-		
-		pet.updateStats(0, happy, -sleepiness, -hunger*2);
+		displayMessage("Pet has finished exerising!");
+		pet.updateStats(0, happy, 0-sleepiness, 0-hunger*2);
+		actionCheck();
 		pet.setMoney(15);
 		update();
-		displayMessage("Pet has finished exerising!");
+
 	}
 
 	/**
@@ -283,7 +286,7 @@ public class MainGame
 		itemMenu.setBackground(Color.red);
 		
 		//Mandate option: I don't want to give gifts
-				JButton goAway = new JButton();
+				JButton goAway = new JButton("exit");
 				goAway.addActionListener(new ActionListener() {
 					//makes menu go away
 					public void actionPerformed(ActionEvent e)
@@ -295,6 +298,7 @@ public class MainGame
 					}
 					
 				});
+				itemMenu.add(goAway);
 				
 		//Optional option: Choose a item to feed to pet
 		HashMap<Items, Integer> map = pet.getInventory();
@@ -329,8 +333,9 @@ public class MainGame
 		
 	}
 	/**
-	 * Pet will be given gifts, more will be discussed due to consumables
+	 * Pet will be given gifts of choice
 	 */
+	//PROBLEM: Spamming this will disable this from working
 	private void giveGifts()
 	{
 		itemMenu = new JPanel();
@@ -338,7 +343,7 @@ public class MainGame
 		HashMap<Items, Integer> map = pet.getInventory();
 		
 		//Mandate option: I don't want to give gifts
-		JButton goAway = new JButton();
+		JButton goAway = new JButton("Leave");
 		goAway.addActionListener(new ActionListener() {
 			//makes menu go away
 			public void actionPerformed(ActionEvent e)
@@ -350,6 +355,7 @@ public class MainGame
 			}
 			
 		});
+		itemMenu.add(goAway);
 		
 		//Optional option: choose a gift
 		for(Items item: map.keySet())
@@ -364,6 +370,7 @@ public class MainGame
 					 {
 						//use item, remove the menu, 
 						item.use(pet);
+						displayMessage("Your pet received your gift!!");
 						frame.remove(itemMenu);
 						frame.repaint();
 						//makes itemMenu nothing again
@@ -379,7 +386,6 @@ public class MainGame
 		itemMenu.setVisible(true);
 		frame.add(itemMenu, BorderLayout.WEST);
 		update();
-		displayMessage("Your pet received your gift!!");
 	}
 	/**
 	 * Play with pet, increase money by 15
@@ -388,6 +394,7 @@ public class MainGame
 	{
 		displayMessage("Played with your pet!");
 		pet.updateStats(0, happy*2, -sleepiness*2, -hunger);
+		actionCheck();
 		pet.setMoney(15);
 		update();
 	}
@@ -419,7 +426,7 @@ public class MainGame
 		//save data on file, to be discussed
 		//TODO:Display stuff/ save
 		frame.dispose();
-		SaveGame aww = new SaveGame(manager, pet, false);
+		//SaveGame aww = SaveGame(manager, pet, false);
 		
 		
 	}
@@ -434,6 +441,8 @@ public class MainGame
 		sleepBar.setText(String.valueOf(pet.getSleep()));
 		happinessBar.setText(String.valueOf(pet.getHappiness()));
 		fullnessBar.setText(String.valueOf(pet.getHunger()));
+		scoreBar.setText(String.valueOf(pet.getMoney()));
+		stats.repaint();
 	}
 	/**
 	 * Sets up the Action Listen 
@@ -442,6 +451,7 @@ public class MainGame
 	 * render method
 	 */
 	public void render(){
+		
 		//frame
 		frame = new JFrame();
 		frame.setTitle("MainPage");
@@ -451,47 +461,35 @@ public class MainGame
         
         //Panel for statistic of pets
         stats = new JPanel();
-        stats.setBackground(Color.green);
+        stats.setBackground(Color.decode("#9BB641"));
+		stats.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+		stats.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+		// Add labels for each stat - Ceclia
+		JLabel healthLabel = new JLabel("Health: ");
+		JLabel sleepLabel = new JLabel("Sleep: ");
+		JLabel happinessLabel = new JLabel("Happiness: ");
+		JLabel fullnessLabel = new JLabel("Hunger: ");
+		JLabel scoreLabel = new JLabel("Score: ");
+
+		//Values of each bar
         healthBar = new JLabel(String.valueOf(pet.getHealth()));
         sleepBar = new JLabel(String.valueOf(pet.getSleep()));
         happinessBar = new JLabel(String.valueOf(pet.getHappiness()));
         fullnessBar = new JLabel(String.valueOf(pet.getHunger()));
-        stats.add(healthBar);
-        stats.add(sleepBar);
-        stats.add(happinessBar);
-        stats.add(fullnessBar);
-        frame.add(stats, BorderLayout.EAST);
+        scoreBar = new JLabel(String.valueOf(pet.getMoney()));
         
         
+		// Add labels and values side by side - Ceclia
+		stats.add(createStatRow(healthLabel, healthBar));
+		stats.add(createStatRow(sleepLabel, sleepBar));
+		stats.add(createStatRow(happinessLabel, happinessBar));
+		stats.add(createStatRow(fullnessLabel, fullnessBar));
+		stats.add(createStatRow(scoreLabel, scoreBar));
+				
+       
         
-        /*
-         sleep
- 		 excerise
-         feed
-         play
-         vet
-         gifts
-         shop
-         save
-         */
-        //Button setup
-        sleep = new JButton("Sleep");
-        sleep.addActionListener(ea -> sleep());
-        exerise = new JButton("Excerise");
-        exerise.addActionListener(ea -> exerise());
-        feed = new JButton("Feed Pet");
-        feed.addActionListener(ea -> feed());
-        play = new JButton("Play");
-        play.addActionListener(ea -> play());
-        vet = new JButton("Go to vet (-50 Coins)");
-        vet.addActionListener( ea -> vet());
-        gifts = new JButton("Gift Pet");
-        gifts.addActionListener(ea -> giveGifts());
-        shop = new JButton("Enter Shop");
-        shop.addActionListener(ea -> enterShop());
-        save = new JButton("Save Game/Exit");
-        save.addActionListener(ea -> save());
-        
+
       //Creates the ActionListener needed to react to keyboard inputs
         //This section rules over how the game reacts to keyboard presses
         //TODO: Unga Bunga the keyrelease method to existence
@@ -522,7 +520,8 @@ public class MainGame
 
         	
         };
-        
+		frame.addKeyListener(listenBro);
+        frame.setFocusable(true);
         
         
         //Setup to display messages
@@ -535,32 +534,94 @@ public class MainGame
 		content.setForeground(Color.white);
 		mess.add(content);
 		mess.setVisible(false);
-		
-		
+
+
+		JPanel topPanel = new JPanel();
+		topPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0)); // Center align the stats panel
+		topPanel.add(stats);
+		topPanel.add(Box.createVerticalStrut(100));
+		topPanel.add(mess);
+		// Add stats panel to the center of the frame
+		frame.add(topPanel, BorderLayout.CENTER);
+		// frame.add(mess, BorderLayout.NORTH);
+			
         
         //Set panel for menu
         JPanel menu = new JPanel();
         menu.setBorder(BorderFactory.createEmptyBorder(10,5,15,5));
-        menu.setLayout(new BoxLayout(menu, BoxLayout.X_AXIS));
-        menu.setBackground(Color.black);
-        menu.add(sleep);
-        menu.add(exerise);
+        menu.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        menu.setBackground(Color.decode("#414643"));
+		
+		/*
+         sleep
+ 		 excerise
+         feed
+         play
+         vet
+         gifts
+         shop
+         save
+         */
+        //Button setup
+        sleep = new JButton("Sleep");
+        sleep.addActionListener(ea -> sleep());
+        exerise = new JButton("Exercise");
+        exerise.addActionListener(ea -> exerise());
+        feed = new JButton("Feed Pet");
+        feed.addActionListener(ea -> feed());
+        play = new JButton("Play");
+        play.addActionListener(ea -> play());
+        vet = new JButton("Go to vet (-50 Coins)");
+        vet.addActionListener( ea -> vet());
+        gifts = new JButton("Gift Pet");
+        gifts.addActionListener(ea -> giveGifts());
+        shop = new JButton("Enter Shop");
+        shop.addActionListener(ea -> enterShop());
+        save = new JButton("Save Game/Exit");
+        save.addActionListener(ea -> save());
+        
+		JPanel savePanel = new JPanel();
+		savePanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0)); // Align to the left
+		savePanel.add(save);
+
+		// Add the "Save Game/Exit" button panel to the top-left corner
+		frame.add(savePanel, BorderLayout.NORTH);
+
+		menu.add(exerise);
+		menu.add(sleep);
         menu.add(feed);
         menu.add(play);
         menu.add(vet);
         menu.add(gifts);
         menu.add(shop);
-        menu.add(save);
+
+
         frame.add(menu, BorderLayout.SOUTH);
-        frame.add(mess, BorderLayout.NORTH);
-        frame.addKeyListener(listenBro);
-        frame.setFocusable(true);
-        
+          
         //display frame
         
         frame.setVisible(true);
 		
 	}
+
+	// Helper method to create a horizontal row
+	private JPanel createStatRow(JLabel label, JLabel value) {
+		JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT)); // Align rows to the left
+		row.setBackground(Color.decode("#9BB641")); // Match panel background
+		row.add(label);
+		row.add(value);
+		return row;
+	}
+
+	
+	public static void main(String[] args)
+	{
+		StateManager dummy = new StateManager();
+		Pet pet = new Pet("sup", 100, 100, 100, 100, 100, "Wuliaonie");
+		MainGame test = new MainGame(dummy, pet);
+		
+	}
+
 
 //For some reason JPanel is really messed up when trying to set it up purely by code
 	//If anyone is using netbeans or other IDE that has the ability to edit JSwing visually please help me out
