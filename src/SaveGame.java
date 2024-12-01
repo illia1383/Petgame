@@ -99,16 +99,6 @@ public class SaveGame {
             }
         });
 
-        save3.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                savePet("src/Save3.txt");
-                frame.dispose();
-                Title title = new Title(statemanager);
-                title.render();
-            }
-        });
-
         returnToGame.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -140,15 +130,15 @@ public class SaveGame {
             writer.newLine();
             writer.write(pet.getName());
             writer.newLine();
-            writer.write(pet.getHealth());
+            writer.write(String.valueOf(pet.getHealth()));
             writer.newLine();
-            writer.write(pet.getHappiness());
+            writer.write(String.valueOf(pet.getHappiness()));
             writer.newLine();
-            writer.write(pet.getSleep());
+            writer.write(String.valueOf(pet.getSleep()));
             writer.newLine();
-            writer.write(pet.getHunger());
+            writer.write(String.valueOf(pet.getHunger()));
             writer.newLine();
-            writer.write(pet.getMoney());
+            writer.write(String.valueOf(pet.getMoney()));
             writer.close();
         } catch (IOException e) {
             System.out.println("IOException SaveGame" + e.getMessage());
@@ -181,7 +171,7 @@ public class SaveGame {
         }
         
         text.setFont(new Font("SansSerif", Font.BOLD, 40));
-        text.setBounds(height / 2+125, 0, width, 400);
+        text.setBounds(height / 3, 0, width, 100);
         frame.add(text);
 
         //Button to start a new game

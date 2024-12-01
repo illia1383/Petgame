@@ -1,13 +1,8 @@
 import java.time.*;
 import java.time.temporal.*;
-import java.util.*;
 import java.io.*;
 
 public class StateManager {
-    /**
-     * The stack holding the states that are run 
-     */
-    private Stack<State> stateStack; 
     /**
      * The start of the time restriction when the user cannot play
      */
@@ -29,8 +24,6 @@ public class StateManager {
      * Constructor that initializes the statestack, sets the time and starts the game
      */
     public StateManager() {
-        stateStack = new Stack<State>();
-        
         //Getting the current local time
         startGame = LocalTime.now();
         startMenu(); //Starting the main game

@@ -54,7 +54,6 @@ public class LoadSaves {
      */
     public LoadSaves(StateManager sg) {
         statemanager = sg;
-        pet = null;
     }
 
 
@@ -122,17 +121,15 @@ public class LoadSaves {
     private boolean makePet(String file) {
         try {
             //Reading the file
-            File fileobj = new File(file);
-            BufferedReader reader = new BufferedReader(new FileReader(fileobj));
+            BufferedReader reader = new BufferedReader(new FileReader(file));   
 
-            //If the file is empty return false
-            if (fileobj.length() == 0) {
+            //If there is a file to read
+            String type = reader.readLine();
+            //If type is null then the file is empty, otherwise continue
+            if (type == null) {
                 return false;
             }
 
-            //Need to not read if there is an empty file do later
-            //If there is a file to read
-            String type = reader.readLine();
             String name = reader.readLine();
             
             int[] petStats = new int[5];
@@ -141,11 +138,11 @@ public class LoadSaves {
             }
 
             //Creating the pet based off the type
-            if (type.equals("cat")) {
+            if (type.toLowerCase().equals("cat")) {
                 pet = new Cat(name);
-            } else if (type.equals("dog")) {
+            } else if (type.toLowerCase().equals("dog")) {
                 pet = new Dog(name);
-            } else if (type.equals("bear")) {
+            } else if (type.toLowerCase().equals("bear")) {
                 pet = new Bear(name);
             }
 
@@ -160,7 +157,7 @@ public class LoadSaves {
         } catch (IOException er) {
             System.out.println("IO Error - Loading the Saves");
         } catch (Exception er) {
-            System.out.println("Other error - Loading the Saves");
+            System.out.println("Other error - Loading the Saves" + er.getMessage());
         }
         return false;
     }

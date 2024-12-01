@@ -37,7 +37,7 @@ public class Parental {
             if (isPlayRestricted()) {
                 JOptionPane.showMessageDialog(frame, "Play is restricted during this time!");
             } else {
-                String[] filePaths = {"src/save1.txt", "src/save2.txt", "src/save3.txt"};
+                String[] filePaths = {"src/Save1.txt", "src/Save2.txt", "src/Save3.txt"};
                 boolean revivedAnyPet = false;
 
                 for (String filePath : filePaths) {
