@@ -132,6 +132,58 @@ public class Pet{
         return happy;
     }
 
+         /**
+     * Checks if the pet is alive
+     * @param health
+     * @return True if the pet is alive, false otherwise
+     */
+    public boolean spriteIsAlive(){
+        if (this.health < 30){
+            this.alive = false;
+        }
+        else this.alive = true;
+        return alive;
+    }
+
+    /**
+     * Checks if the pet is hungry
+     * @param hunger
+     * @return True if the pet is hungry, false otherwise
+     */
+    public boolean spriteIsHungry(){
+        if (this.hunger < 30){
+            this.hungry = true;
+            }
+        else this.hungry = false;
+        return hungry;
+    }
+
+    /**
+     * Checks if the pet is tired
+     * @param sleep
+     * @return True if the pet is tired, false otherwise
+     */
+    public boolean spriteIsTired(){
+        if (this.sleep < 10){
+            this.tired = true;
+            }
+        else this.tired = false;
+        return tired;
+    }
+    
+    /**
+     * Checks if the pet is happy
+     * @param happiness
+     * @return False the pet is unhappy, True otherwise
+     */
+    public boolean spriteIsHappy(){
+        if (this.happiness < 40){
+            this.happy = false;
+            }
+        else this.happy = true;
+        return happy;
+    }
+
     /**
      * 
      * @return the value of health of the pet

@@ -3,6 +3,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Tests the dog class's sprites and initialization
+ * Date：Nov 30, 2024
+ * @author Celia Chan
+ */
+
 public class DogTest {
     
     @Test
@@ -11,7 +17,7 @@ public class DogTest {
         Dog dog = new Dog("Marshmellow");
 
         // Verify the initial values of the Dog
-        assertEquals("Buddy", dog.getName());
+        assertEquals("Marshmellow", dog.getName());
         assertEquals(100, dog.getHealth());
         assertEquals(40, dog.getHappiness());
         assertEquals(100, dog.getSleep());

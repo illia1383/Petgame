@@ -3,6 +3,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.HashMap;
 
+/**
+ * Tests the pet class's initialization and methods
+ * Date：Nov 30, 2024
+ * @author Celia Chan
+ */
+
 public class TestPet {
     @Test
     public void testPetInitialization(){

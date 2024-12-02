@@ -46,26 +46,26 @@ public class Cat extends Pet{
         String spritePath = "images/catnormal.png"; // Cat default sprite
 
         if(!flipped){
-            if(!isAlive()){
+            if(!spriteIsAlive()){
                 spritePath = "images/catdead.png"; // Cat dead state
-            } else if (isTired()){
+            } else if (spriteIsTired()){
                 spritePath = "images/catasleep.png"; // Cat tired state
-            } else if (!isHappy()){
+            } else if (!spriteIsHappy()){
                 spritePath = "images/catangry.png"; // Cat angry state
-            } else if (isHungry()){
+            } else if (spriteIsHungry()){
                 spritePath = "images/cathungry.png"; // Cat hungrystate
             }else{
                 spritePath = "images/catnormal.png"; // Cat normal state (If all stats are back to normal)
             }
         }
         else{
-            if(!isAlive()){
+            if(!spriteIsAlive()){
                 spritePath = "images/catdead_flip.png"; // Cat dead state
-            } else if (isTired()){
+            } else if (spriteIsTired()){
                 spritePath = "images/catasleep_flip.png"; // Cat tired state
-            } else if (!isHappy()){
+            } else if (!spriteIsHappy()){
                 spritePath = "images/catangry_flip.png"; // Cat angry state
-            } else if(isHungry()){
+            } else if(spriteIsHungry()){
                 spritePath = "images/cathungry_flip.png"; // Cat hungrystate
             }else{
                 spritePath = "images/catnormal_flip.png"; // Cat normal state (If all stats are back to normal)

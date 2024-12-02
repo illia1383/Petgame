@@ -40,26 +40,26 @@ public class Dog extends Pet{
     public void updateSprite(JPanel panel, boolean flipped){
         String spritePath = "images/dognormal.png"; // Default Sprite
         if(!flipped){
-            if(!isAlive()){
+            if(!spriteIsAlive()){
                 spritePath = "images/dogdead.png"; // Dog dead state
-            } else if (isTired()){
+            } else if (spriteIsTired()){
                 spritePath = "images/dogasleep.png"; // Dog tired state
-            } else if (!isHappy()){
+            } else if (!spriteIsHappy()){
                 spritePath = "images/dogangry.png"; // Dog angry state
-            } else if(isHungry()){
+            } else if(spriteIsHungry()){
                 spritePath = "images/doghungry.png"; // Dog hungry state
             }else{
                 spritePath = "images/dognormal.png"; // Dog normal state, if all the stats are back to normal
             }
         }
         else{
-            if(!isAlive()){
+            if(!spriteIsAlive()){
                 spritePath = "images/dogdead_flip.png"; // Dog dead state
-            } else if (isTired()){
+            } else if (spriteIsTired()){
                 spritePath = "images/dogasleep_flip.png"; // Dog tired state
-            } else if (!isHappy()){
+            } else if (!spriteIsHappy()){
                 spritePath = "images/dogangry_flip.png"; // Dog angry state
-            } else if(isHungry()){
+            } else if(spriteIsHungry()){
                 spritePath = "images/doghungry_flip.png"; // Dog hungry state
             }else{
                 spritePath = "images/dognormal_flip.png"; // Dog normal state, if all the stats are back to normal

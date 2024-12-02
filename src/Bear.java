@@ -42,26 +42,26 @@ public class Bear extends Pet{
         String spritePath = "images/bearnormal.png"; // Bear default sprite
 
         if(!flipped){
-            if(!isAlive()){
+            if(!spriteIsAlive()){
                 spritePath = "images/beardead.png"; // Bear dead state
-            } else if (isTired()){
+            } else if (spriteIsTired()){
                 spritePath = "images/bearasleep.png"; // Bear asleep state
-            } else if (!isHappy()){
+            } else if (!spriteIsHappy()){
                 spritePath = "images/bearangry.png"; // Bear angry state
-            } else if(isHungry()){
+            } else if(spriteIsHungry()){
                 spritePath = "images/bearhungry.png"; // Bear hungry state
             }else{
                 spritePath = "images/bearnormal.png"; // Bear normal state if all stats are back to normal
             }
         }
         else{
-            if(!isAlive()){
+            if(!spriteIsAlive()){
                 spritePath = "images/beardead_flip.png"; // Bear dead state
-            } else if (isTired()){
+            } else if (spriteIsTired()){
                 spritePath = "images/bearasleep_flip.png"; // Bear asleep state
-            } else if (!isHappy()){
+            } else if (!spriteIsHappy()){
                 spritePath = "images/bearangry_flip.png"; // Bear angry state
-            } else if(isHungry()){
+            } else if(spriteIsHungry()){
                 spritePath = "images/bearhungry_flip.png"; // Bear hungry state
             }else{
                 spritePath = "images/bearnormal_flip.png"; // Bear normal state if all stats are back to normal

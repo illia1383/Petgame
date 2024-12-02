@@ -3,6 +3,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Tests the cat class's sprites and initialization
+ * Date：Nov 30, 2024
+ * @author Celia Chan
+ */
+
+
 public class BearTest {
     
     @Test
