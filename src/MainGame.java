@@ -71,6 +71,11 @@ public class MainGame
 	 */
 	JPanel itemMenu;
 	
+
+	/**
+	 * Value used to determine whether we get the flipped version of pet or not
+	 */
+	boolean flip;
 	/**
 	 * How many seconds before an action is taken
 	 */
@@ -104,6 +109,7 @@ public class MainGame
 		this.pet = pet;
 		this.manager = manage;
 		//scaling for happy and stuff
+		flip = false;
 		happy=5;
 		sleepiness=5;
 		hunger=5;
@@ -131,9 +137,8 @@ public class MainGame
 			public void run()
 			{
 				pet.updateStats(0, -1, -1, -1);
-				if(pet.getType().equals("Dog")){
-					pet.updateSprite(petBox, false);
-				}
+				pet.updateSprite(petBox,flip);
+				flip = !flip;
 				//check if we need to deduct health, actionCheck has an update call
 				actionCheck();
 				update();
