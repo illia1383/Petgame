@@ -230,7 +230,7 @@ public class Pet{
         }
         // Puts the inventory into the HashMap
         // getOrDefault basically gets the current quantity of the item or if it doesn't already exist in the inventory it defaults the value as 0
-        inventory.put(item, inventory.getOrDefault(itemName, 0) + quantity);
+        inventory.put(item, inventory.getOrDefault(item, 0) + quantity);
     }
 
     /**

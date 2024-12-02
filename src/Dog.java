@@ -39,7 +39,7 @@ public class Dog extends Pet{
     @Override 
     public void updateSprite(JPanel panel, boolean flipped){
         String spritePath = "images/dognormal.png"; // Default Sprite
-        if(flipped == false){
+        if(!flipped){
             if(!isAlive()){
                 spritePath = "images/dogdead.png"; // Dog dead state
             } else if (isTired()){

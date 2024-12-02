@@ -45,14 +45,14 @@ public class Cat extends Pet{
     public void updateSprite(JPanel panel, boolean flipped){
         String spritePath = "images/catnormal.png"; // Cat default sprite
 
-        if(flipped == false){
+        if(!flipped){
             if(!isAlive()){
                 spritePath = "images/catdead.png"; // Cat dead state
             } else if (isTired()){
                 spritePath = "images/catasleep.png"; // Cat tired state
             } else if (!isHappy()){
                 spritePath = "images/catangry.png"; // Cat angry state
-            } else if(isHungry()){
+            } else if (isHungry()){
                 spritePath = "images/cathungry.png"; // Cat hungrystate
             }else{
                 spritePath = "images/catnormal.png"; // Cat normal state (If all stats are back to normal)

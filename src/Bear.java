@@ -41,7 +41,7 @@ public class Bear extends Pet{
     public void updateSprite(JPanel panel, boolean flipped){
         String spritePath = "images/bearnormal.png"; // Bear default sprite
 
-        if(flipped = false){
+        if(!flipped){
             if(!isAlive()){
                 spritePath = "images/beardead.png"; // Bear dead state
             } else if (isTired()){
