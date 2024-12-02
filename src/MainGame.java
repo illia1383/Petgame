@@ -132,7 +132,7 @@ public class MainGame
 			{
 				pet.updateStats(0, -1, -1, -1);
 				if(pet.getType().equals("Dog")){
-					pet.updateSprite(petBox);
+					pet.updateSprite(petBox, false);
 				}
 				//check if we need to deduct health, actionCheck has an update call
 				actionCheck();

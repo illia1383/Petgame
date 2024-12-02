@@ -33,7 +33,7 @@ public class Cat extends Pet{
     public void render(JFrame frame, JPanel panel) {
         // Call the parent (Pet) render to reuse the same frame and panel
         super.render(frame, panel);
-        updateSprite(panel);
+        updateSprite(panel,false);
      
     }
 
@@ -42,19 +42,34 @@ public class Cat extends Pet{
      * @param panel
      */ 
     @Override 
-    public void updateSprite(JPanel panel){
+    public void updateSprite(JPanel panel, boolean flipped){
         String spritePath = "images/catnormal.png"; // Cat default sprite
 
-        if(!isAlive()){
-            spritePath = "images/catdead.png"; // Cat dead state
-        } else if (isTired()){
-            spritePath = "images/catasleep.png"; // Cat tired state
-        } else if (!isHappy()){
-            spritePath = "images/catangry.png"; // Cat angry state
-        } else if(isHungry()){
-            spritePath = "images/cathungry.png"; // Cat hungrystate
-        }else{
-            spritePath = "images/catnormal.png"; // Cat normal state (If all stats are back to normal)
+        if(flipped == false){
+            if(!isAlive()){
+                spritePath = "images/catdead.png"; // Cat dead state
+            } else if (isTired()){
+                spritePath = "images/catasleep.png"; // Cat tired state
+            } else if (!isHappy()){
+                spritePath = "images/catangry.png"; // Cat angry state
+            } else if(isHungry()){
+                spritePath = "images/cathungry.png"; // Cat hungrystate
+            }else{
+                spritePath = "images/catnormal.png"; // Cat normal state (If all stats are back to normal)
+            }
+        }
+        else{
+            if(!isAlive()){
+                spritePath = "images/catdead_flip.png"; // Cat dead state
+            } else if (isTired()){
+                spritePath = "images/catasleep_flip.png"; // Cat tired state
+            } else if (!isHappy()){
+                spritePath = "images/catangry_flip.png"; // Cat angry state
+            } else if(isHungry()){
+                spritePath = "images/cathungry_flip.png"; // Cat hungrystate
+            }else{
+                spritePath = "images/catnormal_flip.png"; // Cat normal state (If all stats are back to normal)
+            }
         }
         
         // Update sprite for the cat
