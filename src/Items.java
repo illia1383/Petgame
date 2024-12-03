@@ -90,11 +90,10 @@ public class Items {
         }
     }
 
-    // Retrieve an item by name
     /**
-     * items
+     * Retrieves an item by name
      * @param name
-     * @return the matching item, otherwise null if no match was found
+     * @return the matching item, otherwise, null if no match is found
      */
     public static Items getItemByName(String name) {
         for (Items item : allItems) {

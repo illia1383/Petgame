@@ -38,37 +38,37 @@ public class Dog extends Pet{
      */ 
     @Override 
     public void updateSprite(JPanel panel, boolean flipped){
-        String spritePath = "images/dognormal.png"; // Default Sprite
+        String spritePath = "/images/dognormal.png"; // Default Sprite
         if(!flipped){
             if(!spriteIsAlive()){
-                spritePath = "images/dogdead.png"; // Dog dead state
+                spritePath = "/images/dogdead.png"; // Dog dead state
             } else if (spriteIsTired()){
-                spritePath = "images/dogasleep.png"; // Dog tired state
+                spritePath = "/images/dogasleep.png"; // Dog tired state
             } else if (!spriteIsHappy()){
-                spritePath = "images/dogangry.png"; // Dog angry state
+                spritePath = "/images/dogangry.png"; // Dog angry state
             } else if(spriteIsHungry()){
-                spritePath = "images/doghungry.png"; // Dog hungry state
+                spritePath = "/images/doghungry.png"; // Dog hungry state
             }else{
-                spritePath = "images/dognormal.png"; // Dog normal state, if all the stats are back to normal
+                spritePath = "/images/dognormal.png"; // Dog normal state, if all the stats are back to normal
             }
         }
         else{
             if(!spriteIsAlive()){
-                spritePath = "images/dogdead_flip.png"; // Dog dead state
+                spritePath = "/images/dogdead_flip.png"; // Dog dead state
             } else if (spriteIsTired()){
-                spritePath = "images/dogasleep_flip.png"; // Dog tired state
+                spritePath = "/images/dogasleep_flip.png"; // Dog tired state
             } else if (!spriteIsHappy()){
-                spritePath = "images/dogangry_flip.png"; // Dog angry state
+                spritePath = "/images/dogangry_flip.png"; // Dog angry state
             } else if(spriteIsHungry()){
-                spritePath = "images/doghungry_flip.png"; // Dog hungry state
+                spritePath = "/images/doghungry_flip.png"; // Dog hungry state
             }else{
-                spritePath = "images/dognormal_flip.png"; // Dog normal state, if all the stats are back to normal
+                spritePath = "/images/dognormal_flip.png"; // Dog normal state, if all the stats are back to normal
             }
 
         }
             
         // Update sprite for the dog
-        ImageIcon dogSprite = new ImageIcon(spritePath); // Replace with dog image path
+        ImageIcon dogSprite = new ImageIcon(getClass().getResource(spritePath)); // Replace with dog image path
         JLabel spriteLabel = new JLabel(dogSprite);
 
         panel.removeAll();

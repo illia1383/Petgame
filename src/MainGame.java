@@ -653,11 +653,11 @@ public class MainGame
 
 	}
 
-	/**
+	/** 
 	 * Helper method to create a horizontal row - Celia Chan
 	 * @param label
 	 * @param value
-	 * @return a Jpanel row for nice UI
+	 * @return A JPanel that is a horizontal row. For organizing information.
 	 */
 	private JPanel createStatRow(JLabel label, JLabel value) {
 		JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT)); // Align rows to the left
