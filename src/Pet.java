@@ -6,20 +6,41 @@ import java.util.Calendar;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 
+/**
+ * This class represents the pet. 
+ * It creates the inital object, updates the attributes number of the pet, and handles the inventory
+ * There are also getters and setters for each variable.
+ *
+ * Date: Nov 28, 2024
+ * @author Celia Chan
+ */
 
 public class Pet{
+        /** Health attribute of the pet */
         private int health;
+        /** Happiness attribute of the pet */
         private int happiness;
+        /** Sleep attribute of the pet */
         private int sleep;
+        /** Hunger attribute of the pet */
         private int hunger;
+        /** Boolean for if the pet is alive */
         private boolean alive;
+        /** Boolean for if the pet is hungry */
         private boolean hungry;
+        /** Boolean for if the pet is tired */
         private boolean tired;
+        /** Boolean for if the pet is happy */
         private boolean happy;
+        /** The name of the pet */
         private String name;
+        /** The birthdate of the pet */
         private String birthDate;
+        /** How much money the pet currently has */
         private int money;
+        /** Denotes if pet is a dog, cat or bear */
         private String type;
+        /** The inventory that the pet holds */
         private HashMap<Items, Integer> inventory;
         // Dictionary for the inventory
         // Key = item and then the value would be the number of inventory would be the 1
@@ -224,10 +245,18 @@ public class Pet{
         return this.money;
     }
 
+    /**
+     * 
+     * @return the type of animal the pet is
+     */
     public String getType(){
         return type;
     }
 
+    /**
+     * Sets the type of animal the pet is
+     * @param type
+     */
     public void setType(String type){
         this.type = type;
     }
@@ -239,7 +268,6 @@ public class Pet{
         this.money += changeAmount;
         this.money = Math.max(0,this.money);
 
-        // refreshStats();
     }
 
     /**

@@ -3,7 +3,7 @@ import java.awt.*;
 
 /**
  * This class represents the pet dog using the parent Pet class.
- * It also renders the different sprites of the dog
+ * It renders and updates the different sprites of the dog as well as flips the sprite.
  *
  * Date: Nov 28, 2024
  * @author Celia Chan
