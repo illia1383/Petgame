@@ -42,23 +42,38 @@ public class Cat extends Pet{
      * @param panel
      */ 
     @Override 
-    public void updateSprite(JPanel panel){
-        String spritePath = "images/catnormal.png"; // Cat default sprite
+    public void updateSprite(JPanel panel, boolean flipped){
+        String spritePath = "/images/catnormal.png"; // Cat default sprite
 
-        if(!isAlive()){
-            spritePath = "images/catdead.png"; // Cat dead state
-        } else if (isTired()){
-            spritePath = "images/catasleep.png"; // Cat tired state
-        } else if (!isHappy()){
-            spritePath = "images/catangry.png"; // Cat angry state
-        } else if(isHungry()){
-            spritePath = "images/cathungry.png"; // Cat hungrystate
-        }else{
-            spritePath = "images/catnormal.png"; // Cat normal state (If all stats are back to normal)
+        if(!flipped){
+            if(!spriteIsAlive()){
+                spritePath = "/images/catdead.png"; // Cat dead state
+            } else if (spriteIsTired()){
+                spritePath = "/images/catasleep.png"; // Cat tired state
+            } else if (!spriteIsHappy()){
+                spritePath = "/images/catangry.png"; // Cat angry state
+            } else if (spriteIsHungry()){
+                spritePath = "/images/cathungry.png"; // Cat hungrystate
+            }else{
+                spritePath = "/images/catnormal.png"; // Cat normal state (If all stats are back to normal)
+            }
+        }
+        else{
+            if(!spriteIsAlive()){
+                spritePath = "/images/catdead_flip.png"; // Cat dead state
+            } else if (spriteIsTired()){
+                spritePath = "/images/catasleep_flip.png"; // Cat tired state
+            } else if (!spriteIsHappy()){
+                spritePath = "/images/catangry_flip.png"; // Cat angry state
+            } else if(spriteIsHungry()){
+                spritePath = "/images/cathungry_flip.png"; // Cat hungrystate
+            }else{
+                spritePath = "/images/catnormal_flip.png"; // Cat normal state (If all stats are back to normal)
+            }
         }
         
         // Update sprite for the cat
-        ImageIcon dogSprite = new ImageIcon(spritePath); // Replace with cat image path
+        ImageIcon dogSprite = new ImageIcon(getClass().getResource(spritePath)); // Replace with cat image path
         JLabel spriteLabel = new JLabel(dogSprite);
 
         panel.removeAll();

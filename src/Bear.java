@@ -38,23 +38,38 @@ public class Bear extends Pet{
      * @param panel
      */ 
     @Override 
-    public void updateSprite(JPanel panel){
-        String spritePath = "images/bearnormal.png"; // Bear default sprite
+    public void updateSprite(JPanel panel, boolean flipped){
+        String spritePath = "/images/bearnormal.png"; // Bear default sprite
 
-        if(!isAlive()){
-            spritePath = "images/beardead.png"; // Bear dead state
-        } else if (isTired()){
-            spritePath = "images/bearasleep.png"; // Bear asleep state
-        } else if (!isHappy()){
-            spritePath = "images/bearangry.png"; // Bear angry state
-        } else if(isHungry()){
-            spritePath = "images/bearhungry.png"; // Bear hungry state
-        }else{
-            spritePath = "images/bearnormal.png"; // Bear normal state if all stats are back to normal
+        if(!flipped){
+            if(!spriteIsAlive()){
+                spritePath = "/images/beardead.png"; // Bear dead state
+            } else if (spriteIsTired()){
+                spritePath = "/images/bearasleep.png"; // Bear asleep state
+            } else if (!spriteIsHappy()){
+                spritePath = "/images/bearangry.png"; // Bear angry state
+            } else if(spriteIsHungry()){
+                spritePath = "/images/bearhungry.png"; // Bear hungry state
+            }else{
+                spritePath = "/images/bearnormal.png"; // Bear normal state if all stats are back to normal
+            }
+        }
+        else{
+            if(!spriteIsAlive()){
+                spritePath = "/images/beardead_flip.png"; // Bear dead state
+            } else if (spriteIsTired()){
+                spritePath = "/images/bearasleep_flip.png"; // Bear asleep state
+            } else if (!spriteIsHappy()){
+                spritePath = "/images/bearangry_flip.png"; // Bear angry state
+            } else if(spriteIsHungry()){
+                spritePath = "/images/bearhungry_flip.png"; // Bear hungry state
+            }else{
+                spritePath = "/images/bearnormal_flip.png"; // Bear normal state if all stats are back to normal
+            }
         }
         
         // Update sprite for the bear
-        ImageIcon dogSprite = new ImageIcon(spritePath); // Replace with bear image path
+        ImageIcon dogSprite = new ImageIcon(getClass().getResource(spritePath)); // Replace with bear image path
         JLabel spriteLabel = new JLabel(dogSprite);
 
         panel.removeAll();
