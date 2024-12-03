@@ -91,6 +91,11 @@ public class Items {
     }
 
     // Retrieve an item by name
+    /**
+     * items
+     * @param name
+     * @return the matching item, otherwise null if no match was found
+     */
     public static Items getItemByName(String name) {
         for (Items item : allItems) {
             if (item.getName().equalsIgnoreCase(name)) {

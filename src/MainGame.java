@@ -653,7 +653,12 @@ public class MainGame
 
 	}
 
-	// Helper method to create a horizontal row - Celia Chan
+	/**
+	 * Helper method to create a horizontal row - Celia Chan
+	 * @param label
+	 * @param value
+	 * @return a Jpanel row for nice UI
+	 */
 	private JPanel createStatRow(JLabel label, JLabel value) {
 		JPanel row = new JPanel(new FlowLayout(FlowLayout.LEFT)); // Align rows to the left
 		row.setBackground(Color.decode("#9BB641")); // Match panel background
