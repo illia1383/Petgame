@@ -11,11 +11,29 @@ import java.time.*;
  * managing parental controls, or exiting the game.
  */
 public class Title {
+    /**
+     * Button to start game.
+     */
     private JButton startGame;
+    /**
+     * Button to load saves.
+     */
     private JButton loadSave;
+    /**
+     * Button to access parental controls.
+     */
     private JButton parentalControls;
+    /**
+     * Button to exit game.
+     */
     private JButton exit;
+    /**
+     * The frame that is rendered 
+     */
     private JFrame frame;
+    /**
+     * The statemanager to control the time
+     */
     private StateManager statemanager;
 
     /**

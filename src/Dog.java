@@ -3,7 +3,7 @@ import java.awt.*;
 
 /**
  * This class represents the pet dog using the parent Pet class.
- * It also renders the different sprites of the dog
+ * It renders and updates the different sprites of the dog as well as flips the sprite.
  *
  * Date: Nov 28, 2024
  * @author Celia Chan
@@ -16,7 +16,7 @@ public class Dog extends Pet{
      * @param name
      */
     public Dog(String name){
-        super(name, 100, 0, 100, 80, 0, "Dog"); 
+        super(name, 100, 40, 100, 80, 0, "Dog"); 
     }
 
     /**
@@ -28,7 +28,7 @@ public class Dog extends Pet{
     public void render(JFrame frame, JPanel panel) {
         // Call the parent (Pet) render to reuse the same frame and panel
         super.render(frame, panel);
-        updateSprite(panel);
+        updateSprite(panel, false);
      
     }
 
@@ -66,7 +66,7 @@ public class Dog extends Pet{
             }
 
         }
-        
+            
         // Update sprite for the dog
         ImageIcon dogSprite = new ImageIcon(getClass().getResource(spritePath)); // Replace with dog image path
         JLabel spriteLabel = new JLabel(dogSprite);
@@ -77,4 +77,5 @@ public class Dog extends Pet{
         panel.revalidate();  // Refresh the layout
         panel.repaint();     // Repaint the panel to reflect the changes
     }
+
 }

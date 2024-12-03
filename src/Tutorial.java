@@ -1,16 +1,29 @@
 import java.awt.*;
 import javax.swing.*;
 
+/**
+ * The {@code Tutorial} class provides a step-by-step guide to introduce the user to the game.
+ * It explains the basic objectives, mechanics, and interactions within the game.
+ */
 public class Tutorial {
 
     private StateManager statemanager;
     private Pet pet;
 
+    /**
+     * Constructs a {@code Tutorial} object with the provided state manager and pet instance.
+     *
+     * @param sg  the {@code StateManager} for managing transitions between states
+     * @param pet the {@code Pet} instance that the player interacts with
+     */
     public Tutorial(StateManager sg, Pet pet) {
-        statemanager = sg;
+        this.statemanager = sg;
         this.pet = pet;
     }
 
+    /**
+     * Renders the tutorial screen by creating the main JFrame and displaying the tutorial dialog.
+     */
     public void render() {
         // Create the main JFrame
         JFrame frame = new JFrame("Tutorial");
@@ -25,12 +38,17 @@ public class Tutorial {
         frame.setVisible(true);
     }
 
+    /**
+     * Displays a step-by-step tutorial using a modal dialog.
+     *
+     * @param frame the parent frame for the tutorial dialog
+     */
     private void showTutorialDialog(JFrame frame) {
         // Tutorial messages
         String[] tutorialMessages = {
             "Welcome to the game!",
             "The goal is to keep your pet alive and maintain their other needs.",
-            "Interact with objects by pressing (Add the button they have to press).",
+            "Interact with objects by pressing specific buttons (e.g., Feed, Play, etc.).",
             "You can buy items for your pet through the store. These items will help feed your pet and make them happy.",
             "Good luck and have fun!"
         };
@@ -55,7 +73,7 @@ public class Tutorial {
         JButton backButton = new JButton("Back");
         backButton.setEnabled(false); // Disable back button initially
 
-        // Track current tutorial step
+        // Track the current tutorial step
         final int[] currentStep = {0};
 
         // Button Actions
@@ -95,10 +113,12 @@ public class Tutorial {
         tutorialDialog.setVisible(true);
     }
 
+    /**
+     * Launches the main game after the tutorial is complete.
+     */
     private void launchMainGame() {
         // Create and render the MainGame instance
         MainGame mainGame = new MainGame(statemanager, pet);
-        
+        mainGame.render();
     }
-
 }

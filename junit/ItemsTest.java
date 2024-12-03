@@ -1,166 +1,79 @@
-import org.junit.jupiter.api.Test;
+/**
+ * This class represents the test for items that can be bought and used on the pet
+ *
+ * Date: Nov 30 2024
+ * @author James Wong
+ */
+
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-class PetTest {
+class ItemsTest {
 
-    @Test
-    void testPetStatsInitialization() {
-        // Create a Pet instance
-        Pet pet = new Pet("Fluffy", 100, 80, 70, 50, 0, "Cat");
+    private Items foodItem;
+    private Items happinessItem;
+    private Pet testPet;
 
-        // Assert that the pet's stats are initialized correctly
-        assertEquals(100, pet.getHealth());
-        assertEquals(80, pet.getHappiness());
-        assertEquals(70, pet.getSleep());
-        assertEquals(50, pet.getHunger());
-        assertEquals(0, pet.getMoney());
-        assertTrue(pet.isAlive());
+    @BeforeEach
+    void setUp() {
+        // Create a pet with initial stats
+        testPet = new Pet("Test Pet", 50, 50, 50, 50, 100, "Dog");
+
+        // Create test items
+        foodItem = new Items("Food", 10, 5, 10, 0); // Food item with foodBoost of 10
+        happinessItem = new Items("Toy", 15, 3, 0, 10); // Toy item with happinessBoost of 10
     }
 
     @Test
-    void testUpdateStatsWithValidValues() {
-        // Create a Pet instance
-        Pet pet = new Pet("Fluffy", 100, 80, 70, 50, 0, "Cat");
-
-        // Update stats
-        pet.updateStats(-10, 5, -20, 10);
-
-        // Assert the stats have been updated and constrained within 0-100 range
-        assertEquals(90, pet.getHealth());
-        assertEquals(85, pet.getHappiness());
-        assertEquals(50, pet.getSleep());
-        assertEquals(60, pet.getHunger());
+    void getName() {
+        assertEquals("Food", foodItem.getName(), "Item name should be 'Food'");
+        assertEquals("Toy", happinessItem.getName(), "Item name should be 'Toy'");
     }
 
     @Test
-    void testUpdateStatsWithMaxValues() {
-        // Create a Pet instance
-        Pet pet = new Pet("Fluffy", 100, 100, 100, 100, 0, "Cat");
-
-        // Update stats with values that exceed 100
-        pet.updateStats(20, 10, 5, 5);
-
-        // Assert that the values stay within 0-100 range
-        assertEquals(100, pet.getHealth());
-        assertEquals(100, pet.getHappiness());
-        assertEquals(100, pet.getSleep());
-        assertEquals(100, pet.getHunger());
+    void getPrice() {
+        assertEquals(10, foodItem.getPrice(), "Food item price should be 10");
+        assertEquals(15, happinessItem.getPrice(), "Toy item price should be 15");
     }
 
     @Test
-    void testUpdateStatsWithMinValues() {
-        // Create a Pet instance
-        Pet pet = new Pet("Fluffy", 10, 20, 30, 40, 0, "Cat");
-
-        // Update stats with negative values that would reduce stats below 0
-        pet.updateStats(-20, -30, -40, -50);
-
-        // Assert that the values stay within 0-100 range
-        assertEquals(0, pet.getHealth());
-        assertEquals(0, pet.getHappiness());
-        assertEquals(0, pet.getSleep());
-        assertEquals(0, pet.getHunger());
+    void getQuantity() {
+        assertEquals(5, foodItem.getQuantity(), "Food item quantity should be 5");
+        assertEquals(3, happinessItem.getQuantity(), "Toy item quantity should be 3");
     }
 
     @Test
-    void testPetIsAliveWhenHealthIsZero() {
-        // Create a Pet instance
-        Pet pet = new Pet("Fluffy", 0, 50, 50, 50, 0, "Cat");
-
-        // Assert that the pet is not alive when health is zero
-        assertFalse(pet.isAlive());
+    void getFoodBoost() {
+        assertEquals(10, foodItem.getFoodBoost(), "Food item should have a food boost of 10");
+        assertEquals(0, happinessItem.getFoodBoost(), "Toy item should have no food boost");
     }
 
     @Test
-    void testPetIsAliveWhenHealthIsAboveZero() {
-        // Create a Pet instance
-        Pet pet = new Pet("Fluffy", 50, 50, 50, 50, 0, "Cat");
-
-        // Assert that the pet is alive when health is above zero
-        assertTrue(pet.isAlive());
+    void getHappyBoost() {
+        assertEquals(0, foodItem.getHappyBoost(), "Food item should have no happiness boost");
+        assertEquals(10, happinessItem.getHappyBoost(), "Toy item should have a happiness boost of 10");
     }
 
     @Test
-    void testPetIsHungryWhenHungerIsZero() {
-        // Create a Pet instance
-        Pet pet = new Pet("Fluffy", 50, 50, 50, 0, 0, "Cat");
+    void use() {
+        testPet.updateStats(0, 0, 0, 0); // Reset stats to base values
+        testPet.addItem("Food", 1); // Add food item to inventory
 
-        // Assert that the pet is hungry when hunger is zero
-        assertTrue(pet.isHungry());
+        // Use food item
+        foodItem.use(testPet);
+
+        // After using food item, hunger should decrease by foodBoost value
+        assertEquals(50, testPet.getHunger(), "Hunger should be reduced by 10 after using the food item");
     }
 
     @Test
-    void testPetIsNotHungryWhenHungerIsAboveZero() {
-        // Create a Pet instance
-        Pet pet = new Pet("Fluffy", 50, 50, 50, 30, 0, "Cat");
+    void getItemByName() {
+        Items foundItem = Items.getItemByName("Food");
+        assertNotNull(foundItem, "Item 'Food' should be found");
+        assertEquals("Food", foundItem.getName(), "The found item should be 'Food'");
 
-        // Assert that the pet is not hungry when hunger is above zero
-        assertFalse(pet.isHungry());
-    }
-
-    @Test
-    void testAddItemToInventory() {
-        // Create a Pet instance
-        Pet pet = new Pet("Fluffy", 100, 80, 70, 50, 0, "Cat");
-
-        // Add items to the inventory
-        pet.addItem("Apple", 5);
-
-        // Assert that the item has been added to the inventory
-        assertTrue(pet.getInventory().containsKey(Items.getItemByName("Apple")));
-        assertEquals(5, pet.getInventory().get(Items.getItemByName("Apple")));
-    }
-
-    @Test
-    void testRemoveItemFromInventory() {
-        // Create a Pet instance
-        Pet pet = new Pet("Fluffy", 100, 80, 70, 50, 0, "Cat");
-
-        // Add an item and remove it
-        pet.addItem("Apple", 5);
-        boolean result = pet.removeItem(Items.getItemByName("Apple"), 3);
-
-        // Assert that the item was removed correctly
-        assertTrue(result);
-        assertEquals(2, pet.getInventory().get(Items.getItemByName("Apple")));
-    }
-
-    @Test
-    void testRemoveMoreItemsThanAvailable() {
-        // Create a Pet instance
-        Pet pet = new Pet("Fluffy", 100, 80, 70, 50, 0, "Cat");
-
-        // Add an item and attempt to remove more than available
-        pet.addItem("Apple", 5);
-        boolean result = pet.removeItem(Items.getItemByName("Apple"), 6);
-
-        // Assert that the removal failed
-        assertFalse(result);
-    }
-
-    @Test
-    void testRemoveItemNotInInventory() {
-        // Create a Pet instance
-        Pet pet = new Pet("Fluffy", 100, 80, 70, 50, 0, "Cat");
-
-        // Attempt to remove an item that isn't in the inventory
-        boolean result = pet.removeItem(Items.getItemByName("Banana"), 1);
-
-        // Assert that the removal failed
-        assertFalse(result);
-    }
-
-    @Test
-    void testSetMoney() {
-        // Create a Pet instance
-        Pet pet = new Pet("Fluffy", 100, 80, 70, 50, 0, "Cat");
-
-        // Set money and verify it
-        pet.setMoney(10);
-        assertEquals(10, pet.getMoney());
-
-        // Subtract money and verify it doesn't go below zero
-        pet.setMoney(-15);
-        assertEquals(0, pet.getMoney());
+        Items notFoundItem = Items.getItemByName("NonExistent");
+        assertNull(notFoundItem, "Item 'NonExistent' should not be found");
     }
 }

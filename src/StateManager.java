@@ -2,6 +2,13 @@ import java.time.*;
 import java.time.temporal.*;
 import java.io.*;
 
+/**
+ * StateManager manages the time and start the game
+ * 
+ * <p>
+ * The Title state is run in the constructor after starting the time. The end time is then checked when exiting the game.
+ * </p>
+ */
 public class StateManager {
     /**
      * The start of the time restriction when the user cannot play

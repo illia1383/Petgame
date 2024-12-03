@@ -71,6 +71,11 @@ public class MainGame
 	 */
 	JPanel itemMenu;
 	
+
+	/**
+	 * Value used to determine whether we get the flipped version of pet or not
+	 */
+	boolean flip;
 	/**
 	 * How many seconds before an action is taken
 	 */
@@ -104,6 +109,7 @@ public class MainGame
 		this.pet = pet;
 		this.manager = manage;
 		//scaling for happy and stuff
+		flip = false;
 		happy=5;
 		sleepiness=5;
 		hunger=5;
@@ -131,12 +137,12 @@ public class MainGame
 			public void run()
 			{
 				pet.updateStats(0, -1, -1, -1);
-				if(pet.getType().equals("Dog")){
-					pet.updateSprite(petBox);
-				}
+				pet.updateSprite(petBox,flip);
+				flip = !flip;
 				//check if we need to deduct health, actionCheck has an update call
 				actionCheck();
 				update();
+				needsSleep();
 			}
 		};
 		
@@ -144,7 +150,14 @@ public class MainGame
 		
 	}
 	
-	
+	/**
+	 * Checks if the pet is tired, if it is, go immediately to sleep
+	 */
+	private void needsSleep(){
+		if(pet.isTired())
+			sleep();
+	}
+
 	/**
 	 * Checks if the pet has died
 	 */
@@ -272,9 +285,10 @@ public class MainGame
 	{
 		displayMessage("Pet has finished exerising!");
 		pet.updateStats(0, happy, 0-sleepiness, 0-hunger*2);
-		actionCheck();
 		pet.setMoney(15);
+		actionCheck();
 		update();
+		needsSleep();
 
 	}
 
@@ -400,6 +414,7 @@ public class MainGame
 		actionCheck();
 		pet.setMoney(15);
 		update();
+		needsSleep();
 	}
 	/**
 	 * Bring pet to vet, restores everything
@@ -409,7 +424,6 @@ public class MainGame
 	{
 		displayMessage("Pet has returned from the vet");
 		pet.updateStats(100, 100, 100, 100);
-		//NOTE: Not sure what to do here
 		pet.setMoney(-50);
 		update();
 	}
@@ -646,17 +660,6 @@ public class MainGame
 		row.add(label);
 		row.add(value);
 		return row;
-	}
-	
-	public static void main(String[] args)
-	{	
-		SwingUtilities.invokeLater(() -> {
-			StateManager dummy = new StateManager();
-			Pet pet = new Pet("sup", 100, 1, 100, 100, 100, "Dog");
-			MainGame test = new MainGame(dummy, pet);
-		}
-		);
-		
 	}
 
 

@@ -6,20 +6,41 @@ import java.util.Calendar;
 import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 
+/**
+ * This class represents the pet. 
+ * It creates the inital object, updates the attributes number of the pet, and handles the inventory
+ * There are also getters and setters for each variable.
+ *
+ * Date: Nov 28, 2024
+ * @author Celia Chan
+ */
 
 public class Pet{
+        /** Health attribute of the pet */
         private int health;
+        /** Happiness attribute of the pet */
         private int happiness;
+        /** Sleep attribute of the pet */
         private int sleep;
+        /** Hunger attribute of the pet */
         private int hunger;
+        /** Boolean for if the pet is alive */
         private boolean alive;
+        /** Boolean for if the pet is hungry */
         private boolean hungry;
+        /** Boolean for if the pet is tired */
         private boolean tired;
+        /** Boolean for if the pet is happy */
         private boolean happy;
+        /** The name of the pet */
         private String name;
+        /** The birthdate of the pet */
         private String birthDate;
+        /** How much money the pet currently has */
         private int money;
+        /** Denotes if pet is a dog, cat or bear */
         private String type;
+        /** The inventory that the pet holds */
         private HashMap<Items, Integer> inventory;
         // Dictionary for the inventory
         // Key = item and then the value would be the number of inventory would be the 1
@@ -132,6 +153,58 @@ public class Pet{
         return happy;
     }
 
+         /**
+     * Checks if the pet is alive
+     * @param health
+     * @return True if the pet is alive, false otherwise
+     */
+    public boolean spriteIsAlive(){
+        if (this.health < 30){
+            this.alive = false;
+        }
+        else this.alive = true;
+        return alive;
+    }
+
+    /**
+     * Checks if the pet is hungry
+     * @param hunger
+     * @return True if the pet is hungry, false otherwise
+     */
+    public boolean spriteIsHungry(){
+        if (this.hunger < 30){
+            this.hungry = true;
+            }
+        else this.hungry = false;
+        return hungry;
+    }
+
+    /**
+     * Checks if the pet is tired
+     * @param sleep
+     * @return True if the pet is tired, false otherwise
+     */
+    public boolean spriteIsTired(){
+        if (this.sleep < 10){
+            this.tired = true;
+            }
+        else this.tired = false;
+        return tired;
+    }
+    
+    /**
+     * Checks if the pet is happy
+     * @param happiness
+     * @return False the pet is unhappy, True otherwise
+     */
+    public boolean spriteIsHappy(){
+        if (this.happiness < 40){
+            this.happy = false;
+            }
+        else this.happy = true;
+        return happy;
+    }
+
     /**
      * 
      * @return the value of health of the pet
@@ -172,10 +245,18 @@ public class Pet{
         return this.money;
     }
 
+    /**
+     * 
+     * @return the type of animal the pet is
+     */
     public String getType(){
         return type;
     }
 
+    /**
+     * Sets the type of animal the pet is
+     * @param type
+     */
     public void setType(String type){
         this.type = type;
     }
@@ -187,7 +268,6 @@ public class Pet{
         this.money += changeAmount;
         this.money = Math.max(0,this.money);
 
-        // refreshStats();
     }
 
     /**
@@ -230,7 +310,7 @@ public class Pet{
         }
         // Puts the inventory into the HashMap
         // getOrDefault basically gets the current quantity of the item or if it doesn't already exist in the inventory it defaults the value as 0
-        inventory.put(item, inventory.getOrDefault(itemName, 0) + quantity);
+        inventory.put(item, inventory.getOrDefault(item, 0) + quantity);
     }
 
     /**
@@ -266,7 +346,7 @@ public class Pet{
      * Default implementation for updateSprite, used in the child classes
      * @param panel
      */
-    public void updateSprite(JPanel panel){
+    public void updateSprite(JPanel panel, boolean flipped){
         //Default Implementation; Won't do anything by itself.
     }
 }

@@ -1,7 +1,7 @@
 /**
- * This class represents the shop, where the user can purchase items for their pet
+ * This class represents the shop where the user can purchase items for their pet.
  *
- * Date: Nov 19 2024
+ * Date: Nov 19, 2024
  * @author James Wong
  */
 
@@ -32,7 +32,7 @@ public class Shop extends State {
      */
     public void render() {
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-        int width = (gd.getDisplayMode().getWidth())/2;     // display on only half the screen
+        int width = (gd.getDisplayMode().getWidth()) / 2; // Display on only half the screen
         int height = gd.getDisplayMode().getHeight();
 
         shopWindow = new JFrame("Shop");
@@ -56,12 +56,6 @@ public class Shop extends State {
                             " | Happiness Boost: " + item.getHappyBoost()
             );
 
-            // Load and set the sprite icon
-            ImageIcon icon = new ImageIcon("assets/" + item.getName().toLowerCase() + ".png");
-            Image scaledImage = icon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH); // Scale image
-            icon = new ImageIcon(scaledImage);
-            itemButton.setIcon(icon);
-
             // Set action listener for buying items
             final int index = i;
             itemButton.addActionListener(e -> buy(index));
@@ -70,7 +64,6 @@ public class Shop extends State {
 
         shopWindow.setVisible(true);
     }
-
 
     /**
      * Update the shop after an item is purchased
@@ -110,11 +103,11 @@ public class Shop extends State {
         items = new Items[shopSize]; // Initialize items array
 
         // Add items to the shop
-        items[0] = new Items("Teddy Bear", 100, 1,0, 20);
-        items[1] = new Items("Soccerball", 100, 1, 0, 40);
-        items[2] = new Items("Chocolate", 200, 1, 10, 5);
-        items[3] = new Items("Carrot", 150, 1, 30, 10);
-        items[4] = new Items("Apple", 150, 1, 40, 10);
+        items[0] = new Items("Teddy Bear", 50, 1, 0, 20);
+        items[1] = new Items("Soccerball", 50, 1, 0, 40);
+        items[2] = new Items("Chocolate", 20, 1, 10, 5);
+        items[3] = new Items("Carrot", 50, 1, 30, 10);
+        items[4] = new Items("Apple", 50, 1, 40, 10);
     }
 
     /**
@@ -125,5 +118,4 @@ public class Shop extends State {
     public JFrame getShopWindow() {
         return shopWindow;
     }
-
 }

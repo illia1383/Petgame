@@ -3,7 +3,7 @@ import java.awt.*;
 
 /**
  * This class represents the pet bear using the parent Pet class.
- * It also renders the different sprites of the bear
+ * It renders and updates the different sprites of the bear, as well as flips the sprite.
  *
  * Date: Nov 28, 2024
  * @author Celia Chan
@@ -29,7 +29,7 @@ public class Bear extends Pet{
     public void render(JFrame frame, JPanel panel) {
         // Call the parent (Pet) render to reuse the same frame and panel
         super.render(frame, panel);
-        updateSprite(panel);
+        updateSprite(panel, false);
      
     }
 
