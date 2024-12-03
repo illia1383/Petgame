@@ -73,8 +73,8 @@ public class Cat extends Pet{
         }
         
         // Update sprite for the cat
-        ImageIcon dogSprite = new ImageIcon(getClass().getResource(spritePath)); // Replace with cat image path
-        JLabel spriteLabel = new JLabel(dogSprite);
+        ImageIcon catSprite = new ImageIcon(getClass().getResource(spritePath)); // Replace with cat image path
+        JLabel spriteLabel = new JLabel(catSprite);
 
         panel.removeAll();
         panel.add(spriteLabel, BorderLayout.CENTER);

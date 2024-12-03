@@ -129,6 +129,10 @@ public class StateManager {
         endRestriction = LocalTime.of(hour, min);
     }
 
+    /**
+     * This method runs the entire program. Start your run here.
+     * @param args
+     */
     public static void main(String[] args) {
         StateManager sg = new StateManager();
     }

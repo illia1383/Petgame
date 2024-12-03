@@ -69,8 +69,8 @@ public class Bear extends Pet{
         }
         
         // Update sprite for the bear
-        ImageIcon dogSprite = new ImageIcon(getClass().getResource(spritePath)); // Replace with bear image path
-        JLabel spriteLabel = new JLabel(dogSprite);
+        ImageIcon bearSprite = new ImageIcon(getClass().getResource(spritePath)); // Replace with bear image path
+        JLabel spriteLabel = new JLabel(bearSprite);
 
         panel.removeAll();
         panel.add(spriteLabel, BorderLayout.CENTER);
