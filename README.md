@@ -6,7 +6,7 @@ We will be creating a virtual pet game, where you can feed, gift, play and inter
 ## Required Libraries
 - Java Swing
 
-_To compile the software, run it from the StateManager main method. (If you are on VSCode, make sure you run the code with 'run Java' and not 'run code')_
+_To compile the software, open the code with an IDE and run StateManager.java main method. (If you are on VSCode, make sure you run the code with 'run Java' and not 'run code')_
 
 ## For the parental controls:
 **Username:** Parent <br>
