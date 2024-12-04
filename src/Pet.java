@@ -304,13 +304,12 @@ public class Pet{
     public void addItem(String itemName, int quantity) {
         Items item = Items.getItemByName(itemName); // Find the item by its name
         if (item != null) {
+            // getOrDefault basically gets the current quantity of the item or if it doesn't already exist in the inventory it defaults the value as 0
+            // Puts the inventory into the HashMap
             inventory.put(item, inventory.getOrDefault(item, 0) + quantity);
         } else {
             System.out.println("Error: Item " + itemName + " not found.");
         }
-        // Puts the inventory into the HashMap
-        // getOrDefault basically gets the current quantity of the item or if it doesn't already exist in the inventory it defaults the value as 0
-        //inventory.put(item, inventory.getOrDefault(item, 0) + quantity);
     }
 
     /**

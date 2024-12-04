@@ -323,17 +323,20 @@ public class MainGame
 		{
 			Integer number = map.get(item);
 			if(item.getFoodBoost()>0 && number >0)
-			{
+			{	
+				// Creates a new button with the item name
 				JButton anItem = new JButton(item.getName());
-				anItem.addActionListener( new ActionListener () {
+				anItem.addActionListener( new ActionListener () { // Once the button is pressed
 					@Override
 					 public void actionPerformed(ActionEvent e)
 					 {
+						// The item gets used and the stats of the pet get updated
 						item.use(pet);
+						// The item gets removed from the pet inventory
 						pet.removeItem(item, 1);
+						// Checking the updated quanity
 						Integer updatedQuantity = pet.getInventory().get(item);
-						System.out.print(updatedQuantity);
-						if (updatedQuantity == null || updatedQuantity <= 0){
+						if (updatedQuantity == null || updatedQuantity <= 0){ // If its gone, remove the button
 							itemMenu.remove(anItem);
 						}
 						frame.revalidate(); // Refresh the layout
@@ -342,6 +345,7 @@ public class MainGame
 						itemMenu = null;
 					 }
 				});
+				// Create a new button for the item
 				itemMenu.add(anItem);
 			}
 		}
