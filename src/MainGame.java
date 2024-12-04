@@ -330,12 +330,18 @@ public class MainGame
 					 public void actionPerformed(ActionEvent e)
 					 {
 						item.use(pet);
+						pet.removeItem(item, 1);
+						Integer updatedQuantity = pet.getInventory().get(item);
+						System.out.print(updatedQuantity);
+						if (updatedQuantity == null || updatedQuantity <= 0){
+							itemMenu.remove(anItem);
+						}
+						frame.revalidate(); // Refresh the layout
+        				frame.repaint();
 						frame.remove(itemMenu);
 						itemMenu = null;
 					 }
-				}
-
-						);
+				});
 				itemMenu.add(anItem);
 			}
 		}
@@ -349,6 +355,7 @@ public class MainGame
 		
 		
 	}
+
 	/**
 	 * Pet will be given gifts of choice
 	 */

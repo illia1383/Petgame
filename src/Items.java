@@ -76,14 +76,14 @@ public class Items {
      */
     public void use(Pet pet) {
         // Check if the item boosts hunger (food boost)
-        if (foodBoost > 0 && pet.isHungry()) {
+        if (foodBoost > 0) {
             pet.updateStats(0, 0, 0, foodBoost); // Apply food boost to reduce hunger
         } else if (foodBoost > 0) {
             System.out.println("Pet is not hungry, no food boost applied.");
         }
 
         // Check if the item boosts happiness (happiness boost)
-        if (happyBoost > 0 && pet.isHappy()) {
+        if (happyBoost > 0) {
             pet.updateStats(0, happyBoost, 0, 0); // Boost happiness if the pet is unhappy
         } else if (happyBoost > 0) {
             System.out.println("Pet is already happy, no happiness boost applied.");
