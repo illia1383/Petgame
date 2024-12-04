@@ -17,3 +17,6 @@ To access the control, go from the main menu and click on parental controls.
 ## Specifics
 **Java version:** 23 <br>
 **IDE:** VSCode
+
+## How to run
+open group48.jar
